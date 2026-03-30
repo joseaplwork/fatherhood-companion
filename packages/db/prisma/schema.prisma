@@ -1,0 +1,304 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum OnboardingState {
+  PENDING
+  COMPLETE
+}
+
+enum SubscriptionTier {
+  FREE
+  PREMIUM
+}
+
+enum ReactionType {
+  HEART
+  SUPPORT
+  HELPFUL
+}
+
+enum RsvpStatus {
+  GOING
+  MAYBE
+  NOT_GOING
+}
+
+enum EventKind {
+  IN_PERSON
+  VIRTUAL
+}
+
+enum CalendarEntryType {
+  PERSONAL
+  CHILD_CARE
+  CUSTODY
+  MEDICAL
+  SCHOOL
+  COMMUNITY_EVENT
+  REMINDER
+}
+
+enum ResourceCategory {
+  MENTAL_HEALTH
+  CO_PARENTING
+  LEGAL
+  FINANCE
+  CHILD_DEVELOPMENT
+  SELF_CARE
+  COMMUNITY
+}
+
+enum ResourceType {
+  ARTICLE
+  VIDEO
+  EXERCISE
+  MINI_COURSE
+  GUIDE
+}
+
+enum NotificationType {
+  EVENT_REMINDER
+  COMMUNITY_REPLY
+  AI_CHECKIN
+  MOOD_REMINDER
+  NEW_RESOURCE
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+}
+
+// ---------------------------------------------------------------------------
+// Models
+// ---------------------------------------------------------------------------
+
+model UserProfile {
+  id               String           @id @default(cuid())
+  clerkUserId      String           @unique
+  bio              String?
+  location         String?
+  interests        String[]
+  fcmToken         String?
+  onboardingState  OnboardingState  @default(PENDING)
+  subscriptionTier SubscriptionTier @default(FREE)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  moodEntries          MoodEntry[]
+  conversations        AIConversation[]
+  communityPosts       CommunityPost[]
+  postReplies          PostReply[]
+  postReactions        PostReaction[]
+  hostedEvents         CommunityEvent[]
+  eventRsvps           EventRsvp[]
+  calendarEntries      CalendarEntry[]
+  resourceInteractions ResourceInteraction[]
+  notifications        Notification[]
+}
+
+model MoodEntry {
+  id          String   @id @default(cuid())
+  clerkUserId String
+  profile     UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  mood        Int
+  note        String?
+  emotions    String[]
+  imageUrl    String?
+  date        DateTime @db.Date
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([clerkUserId, date])
+  @@index([clerkUserId, date])
+}
+
+model AIConversation {
+  id          String    @id @default(cuid())
+  clerkUserId String
+  profile     UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  title       String?
+  summary     String?
+  moodContext Int?
+  tokensUsed  Int       @default(0)
+  archivedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  messages ConversationMessage[]
+
+  @@index([clerkUserId, createdAt])
+}
+
+model ConversationMessage {
+  id             String         @id @default(cuid())
+  conversationId String
+  conversation   AIConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           MessageRole
+  content        String
+  tokensUsed     Int            @default(0)
+  createdAt      DateTime       @default(now())
+
+  @@index([conversationId, createdAt])
+}
+
+model CommunityPost {
+  id            String   @id @default(cuid())
+  clerkUserId   String
+  profile       UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  title         String
+  content       String
+  isPinned      Boolean  @default(false)
+  isLocked      Boolean  @default(false)
+  replyCount    Int      @default(0)
+  reactionCount Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  replies   PostReply[]
+  reactions PostReaction[]
+
+  @@index([createdAt])
+  @@index([clerkUserId])
+}
+
+model PostReply {
+  id          String   @id @default(cuid())
+  postId      String
+  post        CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  clerkUserId String
+  profile     UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([postId, createdAt])
+}
+
+model PostReaction {
+  id          String       @id @default(cuid())
+  postId      String
+  post        CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  clerkUserId String
+  profile     UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  type        ReactionType
+  createdAt   DateTime     @default(now())
+
+  @@unique([postId, clerkUserId, type])
+  @@index([postId])
+}
+
+model CommunityEvent {
+  id          String    @id @default(cuid())
+  clerkUserId String
+  profile     UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  title       String
+  description String
+  kind        EventKind
+  location    String?
+  onlineUrl   String?
+  capacity    Int?
+  startAt     DateTime
+  endAt       DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  rsvps           EventRsvp[]
+  calendarEntries CalendarEntry[]
+
+  @@index([startAt])
+}
+
+model EventRsvp {
+  id          String     @id @default(cuid())
+  eventId     String
+  event       CommunityEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  clerkUserId String
+  profile     UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  status      RsvpStatus
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@unique([eventId, clerkUserId])
+  @@index([clerkUserId])
+}
+
+model CalendarEntry {
+  id               String            @id @default(cuid())
+  clerkUserId      String
+  profile          UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  title            String
+  description      String?
+  type             CalendarEntryType
+  startAt          DateTime
+  endAt            DateTime?
+  allDay           Boolean           @default(false)
+  color            String?
+  childRef         String?
+  communityEventId String?
+  communityEvent   CommunityEvent?   @relation(fields: [communityEventId], references: [id])
+  recurrenceRule   String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@index([clerkUserId, startAt])
+}
+
+model Resource {
+  id           String           @id @default(cuid())
+  slug         String           @unique
+  title        String
+  description  String
+  type         ResourceType
+  category     ResourceCategory
+  contentUrl   String?
+  thumbnailUrl String?
+  isAiEnhanced Boolean          @default(false)
+  isPublished  Boolean          @default(false)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  interactions ResourceInteraction[]
+
+  @@index([category, isPublished])
+}
+
+model ResourceInteraction {
+  id          String   @id @default(cuid())
+  resourceId  String
+  resource    Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  clerkUserId String
+  profile     UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  saved       Boolean  @default(false)
+  completed   Boolean  @default(false)
+  rating      Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([resourceId, clerkUserId])
+  @@index([clerkUserId])
+}
+
+model Notification {
+  id          String           @id @default(cuid())
+  clerkUserId String
+  profile     UserProfile @relation(fields: [clerkUserId], references: [clerkUserId])
+  type        NotificationType
+  title       String
+  body        String
+  readAt      DateTime?
+  metadata    Json?
+  createdAt   DateTime         @default(now())
+
+  @@index([clerkUserId, readAt, createdAt])
+}

@@ -6,15 +6,35 @@
     "node": ">=20.9.0"
   },
   "scripts": {
+    "prepare": "husky",
     "dev": "pnpm -r --parallel --if-present dev",
     "dev:web": "pnpm --filter web dev",
     "dev:ui": "pnpm --filter @fatherhood-companion/ui dev",
     "build": "pnpm -r --if-present build",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "biome check .",
-    "lint:fix": "biome check --write ."
+    "lint:fix": "biome check --write .",
+    "check:docs": "node ./scripts/check-ai-docs.mjs",
+    "check:context": "node ./scripts/update-ai-context.mjs --check",
+    "check:boundaries": "node ./scripts/check-boundaries.mjs",
+    "context:update": "node ./scripts/update-ai-context.mjs",
+    "guardrails": "pnpm lint && pnpm typecheck && pnpm check:docs && pnpm check:context && pnpm check:boundaries"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.8"
+    "@biomejs/biome": "^2.4.8",
+    "husky": "^9.1.7",
+    "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@clerk/shared",
+      "@firebase/util",
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma",
+      "protobufjs",
+      "sharp"
+    ]
   }
 }

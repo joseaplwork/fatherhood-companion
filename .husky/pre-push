@@ -1,0 +1,22 @@
+pnpm guardrails
+
+# Remind about the mistake log if any source files were changed this push
+# but docs/ai/mistake-log.md was not touched.
+# This is a reminder only — push is never blocked.
+REMOTE="$1"
+RANGE=$(git rev-parse "$REMOTE/$(git rev-parse --abbrev-ref HEAD)" 2>/dev/null)
+
+if [ -n "$RANGE" ]; then
+  CHANGED=$(git diff --name-only "$RANGE"..HEAD)
+  HIT_SOURCE=$(echo "$CHANGED" | grep -E "\.(ts|tsx|mjs|mts)$" | head -1)
+  HIT_LOG=$(echo "$CHANGED" | grep "docs/ai/mistake-log.md" | head -1)
+
+  if [ -n "$HIT_SOURCE" ] && [ -z "$HIT_LOG" ]; then
+    echo ""
+    echo "  hint: Source files changed but docs/ai/mistake-log.md was not updated."
+    echo "        If you hit any non-obvious issues, footguns, or wrong assumptions"
+    echo "        during this session, add an entry so they're not repeated."
+    echo "        (This is a reminder — push will proceed.)"
+    echo ""
+  fi
+fi

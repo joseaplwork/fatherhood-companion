@@ -1,0 +1,9 @@
+export { AuthTemplate } from "./auth-template";
+export { CalendarTemplate } from "./calendar-template";
+export { ChatTemplate } from "./chat-template";
+export { CommunityTemplate } from "./community-template";
+export { DashboardTemplate } from "./dashboard-template";
+export { DiaryTemplate } from "./diary-template";
+export { OnboardingTemplate } from "./onboarding-template";
+export { ResourceTemplate } from "./resource-template";
+export { SettingsTemplate } from "./settings-template";
