@@ -39,7 +39,9 @@ export async function POST(req: NextRequest) {
   const moodAverage =
     recentMoods.length > 0
       ? Math.round(
-          (recentMoods.reduce((sum: number, m: { mood: number }) => sum + m.mood, 0) / recentMoods.length) * 10,
+          (recentMoods.reduce((sum: number, m: { mood: number }) => sum + m.mood, 0) /
+            recentMoods.length) *
+            10,
         ) / 10
       : null;
 
