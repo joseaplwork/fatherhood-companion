@@ -17,6 +17,15 @@ Use this structure for every new entry:
 
 ---
 
+- `Date`: 2026-03-31
+- `Area`: `apps/web` — TypeScript strict mode across monorepo workspaces
+- `Symptom`: CI `typecheck` fails with `TS7006: Parameter implicitly has an 'any' type` on `reduce` callback parameters (`sum`, `m`) and on `map` callback parameters inside nested `async` callbacks.
+- `Root cause`: Two patterns: (1) TypeScript's strict mode requires the `reduce` accumulator to have an explicit type annotation when the initial value alone isn't sufficient for inference across workspace boundaries — `array.reduce((sum, m) => ...)` must be `array.reduce((sum: number, m) => ...)`. (2) Callback parameter types inside deeply nested async functions (e.g. `onFinish` → `allMessages.map((m) =>)`) may not be inferred when Prisma client types are resolved across workspace package boundaries in CI.
+- `Prevention`: Always annotate the accumulator in `reduce` calls: `reduce((sum: number, m) => ...)`. When calling `.map()` or `.filter()` inside nested async callbacks that operate on Prisma query results, annotate `m` explicitly if the query uses `select`.
+- `Automation or docs updated`: N/A — rule documented here.
+
+---
+
 - `Date`: 2026-03-30
 - `Area`: `packages/ui` — `CalendarGrid` component
 - `Symptom`: Calendar displayed month number ("03") instead of name, and days stacked vertically instead of forming a grid.

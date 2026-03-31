@@ -38,7 +38,9 @@ export async function POST(req: NextRequest) {
   });
   const moodAverage =
     recentMoods.length > 0
-      ? Math.round((recentMoods.reduce((sum, m) => sum + m.mood, 0) / recentMoods.length) * 10) / 10
+      ? Math.round(
+          (recentMoods.reduce((sum: number, m) => sum + m.mood, 0) / recentMoods.length) * 10,
+        ) / 10
       : null;
 
   // Get or create the single active AI Buddy conversation
@@ -115,7 +117,10 @@ export async function POST(req: NextRequest) {
           select: { role: true, content: true },
         });
         const summary = await generateSummary(
-          allMessages.map((m) => ({ role: m.role as "USER" | "ASSISTANT", content: m.content })),
+          allMessages.map((m: { role: string; content: string }) => ({
+            role: m.role as "USER" | "ASSISTANT",
+            content: m.content,
+          })),
         );
         await db.aIConversation.update({
           where: { id: conversationId },

@@ -37,7 +37,9 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
 
   const weeklyAverage =
     weeklyMoods.length > 0
-      ? Math.round((weeklyMoods.reduce((sum, m) => sum + m.mood, 0) / weeklyMoods.length) * 10) / 10
+      ? Math.round(
+          (weeklyMoods.reduce((sum: number, m) => sum + m.mood, 0) / weeklyMoods.length) * 10,
+        ) / 10
       : null;
 
   return { recentMoods, weeklyAverage, unreadNotificationCount: unreadCount };
