@@ -9,28 +9,34 @@ const Feed = (
   <div className="flex flex-col gap-6 max-w-2xl">
     <h1 className="font-display text-3xl font-semibold text-on-surface">Community</h1>
     <PostCard
+      title="Morning routines changed everything"
       authorName="James R."
       authorAvatarSrc={null}
-      timeAgo="2h ago"
+      createdAt="2h ago"
       content="Anyone else find that having a strict morning routine completely changed how the day goes with the kids? Game changer for me."
-      likeCount={14}
-      commentCount={5}
+      reactions={[
+        { type: "HEART", count: 14 },
+        { type: "HELPFUL", count: 5 },
+      ]}
+      replyCount={5}
     />
     <PostCard
+      title="First solo holiday booked!"
       authorName="David K."
       authorAvatarSrc={null}
-      timeAgo="5h ago"
+      createdAt="5h ago"
       content="First solo holiday with my daughter booked. Terrified but excited. Any tips welcome!"
-      likeCount={31}
-      commentCount={12}
+      reactions={[{ type: "SUPPORT", count: 31 }]}
+      replyCount={12}
     />
     <PostCard
+      title="It's okay not to have it figured out"
       authorName="Tom W."
       authorAvatarSrc={null}
-      timeAgo="1d ago"
+      createdAt="1d ago"
       content="Reminder that it's okay to not have it all figured out. We're all making it up as we go."
-      likeCount={62}
-      commentCount={8}
+      reactions={[{ type: "HEART", count: 62 }]}
+      replyCount={8}
     />
   </div>
 );

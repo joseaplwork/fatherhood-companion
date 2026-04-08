@@ -1,41 +1,49 @@
+import type { ResourceCategory, ResourceType } from "@fatherhood-companion/domain";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ResourceCard } from "../organisms/resource-card";
 
 import { ResourceTemplate } from "./resource-template";
 
-const resources = [
+const resources: Array<{
+  id: string;
+  title: string;
+  description: string;
+  type: ResourceType;
+  category: ResourceCategory;
+  isSaved: boolean;
+}> = [
   {
     id: "1",
     title: "Understanding Parental Alienation",
     description:
       "A practical guide to recognising and responding to parental alienation with compassion.",
-    category: "Legal",
-    readTime: "8 min read",
+    type: "ARTICLE",
+    category: "LEGAL",
     isSaved: true,
   },
   {
     id: "2",
     title: "Mindfulness for Busy Dads",
     description: "Short mindfulness practices that fit into a packed schedule.",
-    category: "Wellbeing",
-    readTime: "5 min read",
+    type: "EXERCISE",
+    category: "SELF_CARE",
     isSaved: false,
   },
   {
     id: "3",
     title: "Co-parenting Communication Scripts",
     description: "Ready-to-use scripts for difficult co-parenting conversations.",
-    category: "Co-parenting",
-    readTime: "12 min read",
+    type: "GUIDE",
+    category: "CO_PARENTING",
     isSaved: false,
   },
   {
     id: "4",
     title: "School Transitions — What to Expect",
     description: "How to support your child through primary to secondary school changes.",
-    category: "Parenting",
-    readTime: "6 min read",
+    type: "ARTICLE",
+    category: "CHILD_DEVELOPMENT",
     isSaved: true,
   },
 ];
@@ -49,8 +57,8 @@ const Grid = (
           key={r.id}
           title={r.title}
           description={r.description}
+          type={r.type}
           category={r.category}
-          readTime={r.readTime}
           isSaved={r.isSaved}
         />
       ))}
@@ -68,8 +76,8 @@ const SavedPanel = (
           key={r.id}
           title={r.title}
           description={r.description}
+          type={r.type}
           category={r.category}
-          readTime={r.readTime}
           isSaved={r.isSaved}
         />
       ))}

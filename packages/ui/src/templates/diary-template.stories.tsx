@@ -11,20 +11,19 @@ const entries = [
     date: "Wednesday, 26 Mar",
     mood: 4 as const,
     note: "Had a good morning with the kids. Felt present and calm.",
-    tags: ["family", "calm"],
+    emotions: ["Calm", "Connected"],
   },
   {
     id: "2",
     date: "Tuesday, 25 Mar",
     mood: 2 as const,
     note: "Rough day at work. Hard to switch off in the evening.",
-    tags: ["work", "stress"],
+    emotions: ["Stressed", "Tired"],
   },
   {
     id: "3",
     date: "Monday, 24 Mar",
     mood: 3 as const,
-    tags: [],
   },
 ];
 
@@ -34,7 +33,7 @@ const EntryList = (
       <h1 className="font-display text-3xl font-semibold text-on-surface">Diary</h1>
     </div>
     {entries.map((e) => (
-      <DiaryEntryCard key={e.id} date={e.date} mood={e.mood} note={e.note} tags={e.tags} />
+      <DiaryEntryCard key={e.id} date={e.date} mood={e.mood} note={e.note} emotions={e.emotions} />
     ))}
   </div>
 );
