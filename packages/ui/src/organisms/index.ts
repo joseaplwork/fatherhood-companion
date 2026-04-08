@@ -1,6 +1,7 @@
 export { AIInsightsPanel } from "./ai-insights-panel";
 export { CalendarGrid } from "./calendar-grid";
 export { ChatMessage } from "./chat-message";
+export { Dialog } from "./dialog";
 export { DiaryEntryCard } from "./diary-entry-card";
 export { EventCard } from "./event-card";
 export { MoodBarChart } from "./mood-bar-chart";

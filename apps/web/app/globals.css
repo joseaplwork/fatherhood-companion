@@ -70,3 +70,49 @@
     background: linear-gradient(135deg, #67794a, #7c6f7a);
   }
 }
+
+/* Dialog animations */
+dialog[open] .ui-dialog-panel {
+  animation: uiDialogFadeIn 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+dialog[open].ui-dialog--closing .ui-dialog-panel {
+  animation: uiDialogFadeOut 180ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+dialog[open].ui-dialog--closing::backdrop {
+  animation: uiDialogBackdropFadeOut 180ms ease-out forwards;
+}
+
+@keyframes uiDialogFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes uiDialogFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+}
+
+@keyframes uiDialogBackdropFadeOut {
+  from {
+    background-color: color-mix(in srgb, rgb(17 24 39) 20%, transparent);
+    backdrop-filter: blur(4px);
+  }
+  to {
+    background-color: transparent;
+    backdrop-filter: blur(0);
+  }
+}

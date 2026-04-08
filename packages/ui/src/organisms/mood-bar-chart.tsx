@@ -11,7 +11,7 @@ export function MoodBarChart({ data, className = "" }: MoodBarChartProps) {
 
   return (
     <div
-      className={["flex items-end gap-2 h-24", className].filter(Boolean).join(" ")}
+      className={["flex items-end gap-2", className].filter(Boolean).join(" ")}
       role="img"
       aria-label="Weekly mood chart"
     >
@@ -21,12 +21,11 @@ export function MoodBarChart({ data, className = "" }: MoodBarChartProps) {
 
         return (
           <div key={label} className="flex flex-1 flex-col items-center gap-1">
-            <div className="w-full flex-1 flex items-end">
+            <div className="w-full h-20 flex items-end">
               <div
                 className="w-full rounded-t-full transition-all duration-300"
                 style={{
-                  height: `${heightPct}%`,
-                  minHeight: value > 0 ? "4px" : "0",
+                  height: value > 0 ? `${heightPct}%` : "4px",
                   backgroundColor: value > 0 ? "#bace97" : "#e9e8e5",
                 }}
               />
