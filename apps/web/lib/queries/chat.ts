@@ -1,5 +1,6 @@
-import { auth } from "@clerk/nextjs/server";
-import { db } from "@fatherhood-companion/db";
+import { db } from "@db";
+
+import { getAuthUserId } from "../auth";
 
 export type ChatMessageRow = {
   id: string;
@@ -13,7 +14,7 @@ export type ChatMessageRow = {
  * Returns an empty array if no conversation exists yet (first visit).
  */
 export async function getActiveConversationMessages(): Promise<ChatMessageRow[]> {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) return [];
 
   const conversation = await db.aIConversation.findFirst({

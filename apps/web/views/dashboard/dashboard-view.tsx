@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   AIInsightsPanel,
   Button,
@@ -5,11 +7,10 @@ import {
   DiaryEntryCard,
   MetricChip,
   MoodBarChart,
-  NavSidebar,
-} from "@fatherhood-companion/ui";
-import Link from "next/link";
+} from "@ui";
+
+import { formatDateLong, formatDateShort } from "../../lib/format-date";
 import type { DashboardSummary } from "../../lib/queries/dashboard";
-import { NAV_LINKS } from "../_shared/nav-links";
 
 type DashboardViewProps = {
   summary: DashboardSummary;
@@ -17,16 +18,11 @@ type DashboardViewProps = {
   userName?: string;
 };
 
-function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-}
-
 export function DashboardView({ summary, weeklyTrends, userName = "" }: DashboardViewProps) {
   const { recentMoods, weeklyAverage, unreadNotificationCount } = summary;
 
   return (
     <DashboardTemplate
-      sidebar={<NavSidebar links={NAV_LINKS} userName={userName} />}
       main={
         <div className="max-w-2xl mx-auto space-y-6">
           {/* Greeting */}
@@ -35,11 +31,7 @@ export function DashboardView({ summary, weeklyTrends, userName = "" }: Dashboar
               {userName ? `Hey, ${userName.split(" ")[0]}` : "Welcome back"}
             </h1>
             <p className="font-body text-sm text-on-surface-variant mt-1">
-              {new Date().toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-              })}
+              {formatDateLong(new Date())}
             </p>
           </div>
 
@@ -73,7 +65,7 @@ export function DashboardView({ summary, weeklyTrends, userName = "" }: Dashboar
               <p className="font-body text-sm text-on-primary-fixed">
                 You haven&apos;t logged today yet.
               </p>
-              <Link href="/diary/new">
+              <Link href="/diary">
                 <Button variant="primary">Log mood</Button>
               </Link>
             </div>
@@ -91,7 +83,7 @@ export function DashboardView({ summary, weeklyTrends, userName = "" }: Dashboar
                   return (
                     <Link key={entry.id} href={`/diary/${dateStr}`}>
                       <DiaryEntryCard
-                        date={formatDate(entry.date)}
+                        date={formatDateShort(entry.date)}
                         mood={entry.mood as 1 | 2 | 3 | 4 | 5}
                         note={entry.note ?? undefined}
                         emotions={entry.emotions}

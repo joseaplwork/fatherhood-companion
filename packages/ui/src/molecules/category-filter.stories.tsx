@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { CategoryFilter } from "./category-filter";
 
 const RESOURCE_OPTIONS = [

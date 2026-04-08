@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { DiaryEntryCard } from "./diary-entry-card";
 
 const meta = {

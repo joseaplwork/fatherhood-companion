@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { MoodBarChart } from "./mood-bar-chart";
 
 const meta = {

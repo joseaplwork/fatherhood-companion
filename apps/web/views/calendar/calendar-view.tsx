@@ -1,8 +1,10 @@
 "use client";
 
-import { CalendarGrid, CalendarTemplate, NavSidebar } from "@fatherhood-companion/ui";
 import { useState } from "react";
-import { NAV_LINKS } from "../_shared/nav-links";
+
+import { CalendarGrid, CalendarTemplate } from "@ui";
+
+import { formatDateLong } from "../../lib/format-date";
 
 type DayData = {
   date: number;
@@ -37,7 +39,7 @@ function buildDaysForMonth(year: number, month: number): DayData[] {
   return days;
 }
 
-export function CalendarView({ userName = "" }: { userName?: string }) {
+export function CalendarView() {
   const now = new Date();
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth());
@@ -65,17 +67,10 @@ export function CalendarView({ userName = "" }: { userName?: string }) {
   }
 
   const selectedDateLabel =
-    selectedDate != null
-      ? new Date(year, month, selectedDate).toLocaleDateString("en-US", {
-          weekday: "long",
-          month: "long",
-          day: "numeric",
-        })
-      : null;
+    selectedDate != null ? formatDateLong(new Date(year, month, selectedDate)) : null;
 
   return (
     <CalendarTemplate
-      sidebar={<NavSidebar links={NAV_LINKS} userName={userName} />}
       calendarGrid={
         <div>
           <h1 className="font-display text-2xl font-semibold text-on-surface mb-6">Calendar</h1>

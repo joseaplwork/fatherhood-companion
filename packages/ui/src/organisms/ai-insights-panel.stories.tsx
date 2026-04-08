@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { AIInsightsPanel } from "./ai-insights-panel";
 
 const meta = {

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { NavSidebar } from "./nav-sidebar";
 
 const NAV_LINKS = [

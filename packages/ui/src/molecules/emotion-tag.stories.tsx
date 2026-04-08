@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { EmotionTag } from "./emotion-tag";
 
 const meta = {

@@ -1,10 +1,8 @@
-import { Button, CommunityTemplate, NavSidebar, PostCard } from "@fatherhood-companion/ui";
-import { NAV_LINKS } from "../_shared/nav-links";
+import { Button, CommunityTemplate, PostCard } from "@ui";
 
-export function CommunityView({ userName = "" }: { userName?: string }) {
+export function CommunityView() {
   return (
     <CommunityTemplate
-      sidebar={<NavSidebar links={NAV_LINKS} userName={userName} />}
       feed={
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-6">

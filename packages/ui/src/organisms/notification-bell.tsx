@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
 import { Icon } from "../atoms/icon";
 import { NotificationItem } from "../molecules/notification-item";
 

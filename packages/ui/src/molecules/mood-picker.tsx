@@ -3,6 +3,7 @@
 import type { MoodScale } from "@fatherhood-companion/domain";
 import { MOOD_EMOJIS, MOOD_LABELS } from "@fatherhood-companion/domain";
 import { useState } from "react";
+
 import { Slider } from "../atoms/slider";
 
 type MoodPickerProps = {

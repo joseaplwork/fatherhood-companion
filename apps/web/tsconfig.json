@@ -5,11 +5,18 @@
     "allowJs": false,
     "incremental": true,
     "jsx": "preserve",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@web/*": ["./*"],
+      "@domain": ["../../packages/domain/src/index.ts"],
+      "@domain/*": ["../../packages/domain/src/*"],
+      "@db": ["../../packages/db/src/index.ts"],
+      "@ai": ["../../packages/ai/src/index.ts"],
+      "@ai/*": ["../../packages/ai/src/*"],
+      "@ui": ["../../packages/ui/src/index.ts"],
+      "@ui/*": ["../../packages/ui/src/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

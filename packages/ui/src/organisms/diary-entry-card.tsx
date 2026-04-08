@@ -1,4 +1,5 @@
 import type { MoodScale } from "@fatherhood-companion/domain";
+
 import { EmotionTag } from "../molecules/emotion-tag";
 
 const MOOD_EMOJIS: Record<MoodScale, string> = {

@@ -1,5 +1,6 @@
 import { SUMMARY_TRIGGER_COUNT } from "@fatherhood-companion/domain";
 import { generateText } from "ai";
+
 import { AI_CONFIG, anthropic } from "../config";
 import { buildSummarizePrompt } from "../prompts/summarize";
 

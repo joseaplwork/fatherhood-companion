@@ -1,4 +1,5 @@
 import type { ResourceCategory, ResourceType } from "@fatherhood-companion/domain";
+
 import { Icon } from "../atoms/icon";
 
 const TYPE_ICONS: Record<ResourceType, string> = {

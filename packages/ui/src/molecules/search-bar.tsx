@@ -1,6 +1,7 @@
 "use client";
 
 import { type ChangeEvent, type KeyboardEvent, useState } from "react";
+
 import { Icon } from "../atoms/icon";
 
 type SearchBarProps = {

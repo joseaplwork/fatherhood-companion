@@ -1,8 +1,10 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
-import { db } from "@fatherhood-companion/db";
 import { revalidatePath } from "next/cache";
+
+import { db } from "@db";
+
+import { getAuthUserId } from "../auth";
 import type { MoodEntryInput, UpdateMoodEntryInput } from "../schemas/mood";
 import { MoodEntrySchema, UpdateMoodEntrySchema } from "../schemas/mood";
 
@@ -18,7 +20,7 @@ type MoodEntryData = {
 };
 
 export async function createMoodEntry(input: MoodEntryInput): Promise<Result<MoodEntryData>> {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) return { error: "Unauthorized" };
 
   const parsed = MoodEntrySchema.safeParse(input);
@@ -56,7 +58,7 @@ export async function updateMoodEntry(
   id: string,
   input: UpdateMoodEntryInput,
 ): Promise<Result<MoodEntryData>> {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) return { error: "Unauthorized" };
 
   const parsed = UpdateMoodEntrySchema.safeParse(input);

@@ -1,5 +1,7 @@
-import { auth } from "@clerk/nextjs/server";
-import { db } from "@fatherhood-companion/db";
+import { db } from "@db";
+
+import { getAuthUserId } from "../auth";
+
 import type { MoodEntryRow } from "./mood";
 
 export type DashboardSummary = {
@@ -9,7 +11,7 @@ export type DashboardSummary = {
 };
 
 export async function getDashboardSummary(): Promise<DashboardSummary> {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) {
     return { recentMoods: [], weeklyAverage: null, unreadNotificationCount: 0 };
   }

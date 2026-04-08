@@ -1,5 +1,6 @@
-import { auth } from "@clerk/nextjs/server";
-import { db } from "@fatherhood-companion/db";
+import { db } from "@db";
+
+import { getAuthUserId } from "../auth";
 
 export type MoodEntryRow = {
   id: string;
@@ -11,7 +12,7 @@ export type MoodEntryRow = {
 };
 
 export async function getMoodHistory(limit = 30): Promise<MoodEntryRow[]> {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) return [];
 
   return db.moodEntry.findMany({
@@ -23,7 +24,7 @@ export async function getMoodHistory(limit = 30): Promise<MoodEntryRow[]> {
 }
 
 export async function getMoodByDate(date: string): Promise<MoodEntryRow | null> {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) return null;
 
   const dateObj = new Date(`${date}T00:00:00.000Z`);
@@ -35,7 +36,7 @@ export async function getMoodByDate(date: string): Promise<MoodEntryRow | null> 
 
 /** Returns mood scores for the last 7 days (Mon=0 … Sun=6), 0 if no entry. */
 export async function getMoodTrends(): Promise<number[]> {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) return Array.from({ length: 7 }, () => 0);
 
   const since = new Date();

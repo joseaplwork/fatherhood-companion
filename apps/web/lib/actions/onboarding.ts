@@ -1,15 +1,17 @@
 "use server";
 
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { db } from "@fatherhood-companion/db";
 import { revalidatePath } from "next/cache";
+
+import { db } from "@db";
+
+import { getAuthUserId, setUserPrivateMetadata } from "../auth";
 import type { OnboardingInput } from "../schemas/onboarding";
 import { OnboardingSchema } from "../schemas/onboarding";
 
 type Result<T> = { data: T } | { error: string };
 
 export async function completeOnboarding(input: OnboardingInput): Promise<Result<{ id: string }>> {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) {
     return { error: "Unauthorized" };
   }
@@ -42,10 +44,7 @@ export async function completeOnboarding(input: OnboardingInput): Promise<Result
 
     // Store children in Clerk private metadata
     if (children && children.length > 0) {
-      const client = await clerkClient();
-      await client.users.updateUserMetadata(userId, {
-        privateMetadata: { children },
-      });
+      await setUserPrivateMetadata(userId, { children });
     }
 
     revalidatePath("/dashboard");

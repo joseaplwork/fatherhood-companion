@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+
 import { getMoodByDate } from "../../../../lib/queries/mood";
 import { EntryView } from "../../../../views/diary/entry-view";
 

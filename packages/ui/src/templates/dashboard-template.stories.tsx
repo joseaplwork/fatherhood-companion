@@ -1,19 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { AIInsightsPanel } from "../organisms/ai-insights-panel";
 import { MoodBarChart } from "../organisms/mood-bar-chart";
-import { NavSidebar } from "../organisms/nav-sidebar";
+
 import { DashboardTemplate } from "./dashboard-template";
-
-const NAV_LINKS = [
-  { icon: "dashboard", label: "Dashboard", href: "#", active: true },
-  { icon: "book", label: "Diary", href: "#" },
-  { icon: "people", label: "Community", href: "#" },
-  { icon: "calendar_today", label: "Calendar", href: "#" },
-  { icon: "library_books", label: "Resources", href: "#" },
-  { icon: "support_agent", label: "Buddy", href: "#" },
-];
-
-const Sidebar = <NavSidebar links={NAV_LINKS} userName="Marcus Davies" onSignOut={() => {}} />;
 
 const AiPanel = (
   <AIInsightsPanel
@@ -55,7 +45,6 @@ type Story = StoryObj<typeof meta>;
 export const WithAiPanel: Story = {
   name: "With AI panel",
   args: {
-    sidebar: Sidebar,
     main: Main,
     aiPanel: AiPanel,
   },
@@ -64,7 +53,6 @@ export const WithAiPanel: Story = {
 export const NoAiPanel: Story = {
   name: "Without AI panel",
   args: {
-    sidebar: Sidebar,
     main: Main,
   },
 };

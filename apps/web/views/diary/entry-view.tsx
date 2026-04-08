@@ -1,6 +1,9 @@
-import { Button } from "@fatherhood-companion/ui";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Button } from "@ui";
+
+import { formatDateFull } from "../../lib/format-date";
 import type { MoodEntryRow } from "../../lib/queries/mood";
 
 const MOOD_EMOJIS: Record<number, string> = { 1: "😔", 2: "😕", 3: "😐", 4: "🙂", 5: "😄" };
@@ -17,12 +20,7 @@ type EntryViewProps = {
 };
 
 export function EntryView({ entry }: EntryViewProps) {
-  const dateLabel = entry.date.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const dateLabel = formatDateFull(entry.date);
 
   return (
     <main className="min-h-screen bg-surface px-6 py-8">
@@ -81,9 +79,9 @@ export function EntryView({ entry }: EntryViewProps) {
           />
         )}
 
-        <Link href={`/diary/new`}>
+        <Link href="/diary">
           <Button variant="secondary" className="w-full">
-            Edit entry
+            Back to diary
           </Button>
         </Link>
       </div>

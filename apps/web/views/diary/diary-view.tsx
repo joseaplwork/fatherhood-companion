@@ -1,35 +1,26 @@
-import {
-  Button,
-  DiaryEntryCard,
-  DiaryTemplate,
-  MoodBarChart,
-  NavSidebar,
-} from "@fatherhood-companion/ui";
 import Link from "next/link";
+
+import { DiaryEntryCard, DiaryTemplate, MoodBarChart } from "@ui";
+
+import { formatDateShort } from "../../lib/format-date";
 import type { MoodEntryRow } from "../../lib/queries/mood";
-import { NAV_LINKS } from "../_shared/nav-links";
+
+import { LogMoodDialog } from "./log-mood-dialog";
 
 type DiaryViewProps = {
   entries: MoodEntryRow[];
   weeklyTrends: number[];
 };
 
-function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-}
-
 export function DiaryView({ entries, weeklyTrends }: DiaryViewProps) {
   return (
     <DiaryTemplate
-      sidebar={<NavSidebar links={NAV_LINKS} />}
       entryList={
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <h1 className="font-display text-2xl font-semibold text-on-surface">My Diary</h1>
-            <Link href="/diary/new">
-              <Button variant="primary">Log mood</Button>
-            </Link>
+            <LogMoodDialog />
           </div>
 
           {/* Weekly chart */}
@@ -44,9 +35,7 @@ export function DiaryView({ entries, weeklyTrends }: DiaryViewProps) {
               <p className="font-body text-sm text-on-surface-variant mb-4">
                 No entries yet. Start by logging today&apos;s mood.
               </p>
-              <Link href="/diary/new">
-                <Button variant="secondary">Log first mood</Button>
-              </Link>
+              <LogMoodDialog label="Log first mood" variant="secondary" />
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -55,7 +44,7 @@ export function DiaryView({ entries, weeklyTrends }: DiaryViewProps) {
                 return (
                   <Link key={entry.id} href={`/diary/${dateStr}`}>
                     <DiaryEntryCard
-                      date={formatDate(entry.date)}
+                      date={formatDateShort(entry.date)}
                       mood={entry.mood as 1 | 2 | 3 | 4 | 5}
                       note={entry.note ?? undefined}
                       emotions={entry.emotions}

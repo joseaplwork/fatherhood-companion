@@ -24,6 +24,29 @@
       }
     }
   },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              [":NODE:", ":BUN:"],
+              ":BLANK_LINE:",
+              ["@*/**", "ai", "ai/**", "next", "next/**", "react", "react/**", "zod", "zod/**"],
+              ":BLANK_LINE:",
+              ["@ai", "@ai/**", "@db", "@domain", "@domain/**", "@ui", "@ui/**", "@web/**"],
+              ":BLANK_LINE:",
+              ["../**"],
+              ":BLANK_LINE:",
+              ["./**"]
+            ]
+          }
+        }
+      }
+    }
+  },
   "css": {
     "parser": {
       "tailwindDirectives": true

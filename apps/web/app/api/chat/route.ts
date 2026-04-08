@@ -1,4 +1,6 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { streamText } from "ai";
+import type { NextRequest } from "next/server";
+
 import {
   AI_CONFIG,
   anthropic,
@@ -7,11 +9,11 @@ import {
   containsCrisisKeyword,
   generateSummary,
   shouldSummarize,
-} from "@fatherhood-companion/ai";
-import { db } from "@fatherhood-companion/db";
-import type { ChildProfile } from "@fatherhood-companion/domain";
-import { streamText } from "ai";
-import type { NextRequest } from "next/server";
+} from "@ai";
+import { db } from "@db";
+
+import { getAuthUserId } from "../../../lib/auth";
+import { getUserContext } from "../../../lib/queries/user";
 
 type IncomingMessage = {
   role: "user" | "assistant";
@@ -19,14 +21,13 @@ type IncomingMessage = {
 };
 
 export async function POST(req: NextRequest) {
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   if (!userId) return new Response("Unauthorized", { status: 401 });
 
   const { messages } = (await req.json()) as { messages: IncomingMessage[] };
 
   // Children come from Clerk private metadata — never stored in our DB
-  const user = await currentUser();
-  const children = (user?.privateMetadata?.children ?? []) as ChildProfile[];
+  const { children } = await getUserContext();
 
   // Mood average over the last 7 days for context
   const since = new Date();

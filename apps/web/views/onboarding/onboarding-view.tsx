@@ -1,8 +1,10 @@
 "use client";
 
-import { Button, FormField, OnboardingTemplate } from "@fatherhood-companion/ui";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import { Button, FormField, OnboardingTemplate } from "@ui";
+
 import { completeOnboarding } from "../../lib/actions/onboarding";
 
 type Child = { name: string; birthYear: number };

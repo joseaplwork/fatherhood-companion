@@ -1,4 +1,5 @@
 import type { EventKind, RsvpStatus } from "@fatherhood-companion/domain";
+
 import { Icon } from "../atoms/icon";
 
 const RSVP_LABELS: Record<RsvpStatus, string> = {

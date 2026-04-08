@@ -1,10 +1,8 @@
-import { NavSidebar, ResourceCard, ResourceTemplate } from "@fatherhood-companion/ui";
-import { NAV_LINKS } from "../_shared/nav-links";
+import { ResourceCard, ResourceTemplate } from "@ui";
 
-export function ResourcesView({ userName = "" }: { userName?: string }) {
+export function ResourcesView() {
   return (
     <ResourceTemplate
-      sidebar={<NavSidebar links={NAV_LINKS} userName={userName} />}
       grid={
         <div className="max-w-4xl mx-auto">
           <div className="mb-6">

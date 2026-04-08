@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+
 import { collectDeclaredDependencies, loadWorkspaces, toRepoPath } from "./lib/workspaces.mjs";
 
 const repoRoot = process.cwd();

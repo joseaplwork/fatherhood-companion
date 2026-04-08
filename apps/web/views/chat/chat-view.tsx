@@ -1,9 +1,10 @@
 "use client";
 
-import { Button, ChatMessage, ChatTemplate, NavSidebar } from "@fatherhood-companion/ui";
 import { useChat } from "ai/react";
+
+import { Button, ChatMessage, ChatTemplate } from "@ui";
+
 import type { ChatMessageRow } from "../../lib/queries/chat";
-import { NAV_LINKS } from "../_shared/nav-links";
 
 const WELCOME_MESSAGE = {
   id: "welcome",
@@ -32,7 +33,6 @@ export function ChatView({ userName = "", userAvatarSrc, initialMessages }: Chat
 
   return (
     <ChatTemplate
-      sidebar={<NavSidebar links={NAV_LINKS} userName={userName} />}
       conversationList={
         <div className="px-3">
           <h2 className="font-display text-sm font-semibold text-on-surface px-3 mb-4">

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { NotificationBell } from "./notification-bell";
 
 const NOTIFICATIONS = [
