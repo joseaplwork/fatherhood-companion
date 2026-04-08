@@ -56,7 +56,7 @@ export function ChatView({ userName = "", userAvatarSrc, initialMessages }: Chat
           <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-4">
             {messages.map((msg) => {
               const props = {
-                role: msg.role as "user" | "assistant",
+                sender: msg.role as "user" | "assistant",
                 content: msg.content,
                 userName,
                 userAvatarSrc,
@@ -64,8 +64,7 @@ export function ChatView({ userName = "", userAvatarSrc, initialMessages }: Chat
               return <ChatMessage key={msg.id} {...props} />;
             })}
             {isLoading && (
-              // biome-ignore lint/a11y/useValidAriaRole: role is a custom ChatMessage prop, not an ARIA role
-              <ChatMessage role="assistant" content="…" className="opacity-60 animate-pulse" />
+              <ChatMessage sender="assistant" content="…" className="opacity-60 animate-pulse" />
             )}
           </div>
 

@@ -1,7 +1,7 @@
 import { Avatar } from "../atoms/avatar";
 
 type ChatMessageProps = {
-  role: "user" | "assistant";
+  sender: "user" | "assistant";
   content: string;
   timestamp?: string;
   userName?: string;
@@ -10,14 +10,14 @@ type ChatMessageProps = {
 };
 
 export function ChatMessage({
-  role,
+  sender,
   content,
   timestamp,
   userName = "",
   userAvatarSrc,
   className = "",
 }: ChatMessageProps) {
-  const isUser = role === "user";
+  const isUser = sender === "user";
 
   return (
     <div
