@@ -31,7 +31,7 @@ CREATE TYPE "MessageRole" AS ENUM ('USER', 'ASSISTANT');
 -- CreateTable
 CREATE TABLE "UserProfile" (
     "id" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "bio" TEXT,
     "location" TEXT,
     "interests" TEXT[],
@@ -47,7 +47,7 @@ CREATE TABLE "UserProfile" (
 -- CreateTable
 CREATE TABLE "MoodEntry" (
     "id" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "mood" INTEGER NOT NULL,
     "note" TEXT,
     "emotions" TEXT[],
@@ -62,7 +62,7 @@ CREATE TABLE "MoodEntry" (
 -- CreateTable
 CREATE TABLE "AIConversation" (
     "id" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "title" TEXT,
     "summary" TEXT,
     "moodContext" INTEGER,
@@ -89,7 +89,7 @@ CREATE TABLE "ConversationMessage" (
 -- CreateTable
 CREATE TABLE "CommunityPost" (
     "id" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "isPinned" BOOLEAN NOT NULL DEFAULT false,
@@ -106,7 +106,7 @@ CREATE TABLE "CommunityPost" (
 CREATE TABLE "PostReply" (
     "id" TEXT NOT NULL,
     "postId" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE "PostReply" (
 CREATE TABLE "PostReaction" (
     "id" TEXT NOT NULL,
     "postId" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "type" "ReactionType" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -128,7 +128,7 @@ CREATE TABLE "PostReaction" (
 -- CreateTable
 CREATE TABLE "CommunityEvent" (
     "id" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "kind" "EventKind" NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE "CommunityEvent" (
 CREATE TABLE "EventRsvp" (
     "id" TEXT NOT NULL,
     "eventId" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "status" "RsvpStatus" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -158,7 +158,7 @@ CREATE TABLE "EventRsvp" (
 -- CreateTable
 CREATE TABLE "CalendarEntry" (
     "id" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
     "type" "CalendarEntryType" NOT NULL,
@@ -197,7 +197,7 @@ CREATE TABLE "Resource" (
 CREATE TABLE "ResourceInteraction" (
     "id" TEXT NOT NULL,
     "resourceId" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "saved" BOOLEAN NOT NULL DEFAULT false,
     "completed" BOOLEAN NOT NULL DEFAULT false,
     "rating" INTEGER,
@@ -210,7 +210,7 @@ CREATE TABLE "ResourceInteraction" (
 -- CreateTable
 CREATE TABLE "Notification" (
     "id" TEXT NOT NULL,
-    "clerkUserId" TEXT NOT NULL,
+    "providerUserId" TEXT NOT NULL,
     "type" "NotificationType" NOT NULL,
     "title" TEXT NOT NULL,
     "body" TEXT NOT NULL,
@@ -222,16 +222,16 @@ CREATE TABLE "Notification" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "UserProfile_clerkUserId_key" ON "UserProfile"("clerkUserId");
+CREATE UNIQUE INDEX "UserProfile_clerkUserId_key" ON "UserProfile"("providerUserId");
 
 -- CreateIndex
-CREATE INDEX "MoodEntry_clerkUserId_date_idx" ON "MoodEntry"("clerkUserId", "date");
+CREATE INDEX "MoodEntry_clerkUserId_date_idx" ON "MoodEntry"("providerUserId", "date");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "MoodEntry_clerkUserId_date_key" ON "MoodEntry"("clerkUserId", "date");
+CREATE UNIQUE INDEX "MoodEntry_clerkUserId_date_key" ON "MoodEntry"("providerUserId", "date");
 
 -- CreateIndex
-CREATE INDEX "AIConversation_clerkUserId_createdAt_idx" ON "AIConversation"("clerkUserId", "createdAt");
+CREATE INDEX "AIConversation_clerkUserId_createdAt_idx" ON "AIConversation"("providerUserId", "createdAt");
 
 -- CreateIndex
 CREATE INDEX "ConversationMessage_conversationId_createdAt_idx" ON "ConversationMessage"("conversationId", "createdAt");
@@ -240,7 +240,7 @@ CREATE INDEX "ConversationMessage_conversationId_createdAt_idx" ON "Conversation
 CREATE INDEX "CommunityPost_createdAt_idx" ON "CommunityPost"("createdAt");
 
 -- CreateIndex
-CREATE INDEX "CommunityPost_clerkUserId_idx" ON "CommunityPost"("clerkUserId");
+CREATE INDEX "CommunityPost_clerkUserId_idx" ON "CommunityPost"("providerUserId");
 
 -- CreateIndex
 CREATE INDEX "PostReply_postId_createdAt_idx" ON "PostReply"("postId", "createdAt");
@@ -249,19 +249,19 @@ CREATE INDEX "PostReply_postId_createdAt_idx" ON "PostReply"("postId", "createdA
 CREATE INDEX "PostReaction_postId_idx" ON "PostReaction"("postId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "PostReaction_postId_clerkUserId_type_key" ON "PostReaction"("postId", "clerkUserId", "type");
+CREATE UNIQUE INDEX "PostReaction_postId_clerkUserId_type_key" ON "PostReaction"("postId", "providerUserId", "type");
 
 -- CreateIndex
 CREATE INDEX "CommunityEvent_startAt_idx" ON "CommunityEvent"("startAt");
 
 -- CreateIndex
-CREATE INDEX "EventRsvp_clerkUserId_idx" ON "EventRsvp"("clerkUserId");
+CREATE INDEX "EventRsvp_clerkUserId_idx" ON "EventRsvp"("providerUserId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "EventRsvp_eventId_clerkUserId_key" ON "EventRsvp"("eventId", "clerkUserId");
+CREATE UNIQUE INDEX "EventRsvp_eventId_clerkUserId_key" ON "EventRsvp"("eventId", "providerUserId");
 
 -- CreateIndex
-CREATE INDEX "CalendarEntry_clerkUserId_startAt_idx" ON "CalendarEntry"("clerkUserId", "startAt");
+CREATE INDEX "CalendarEntry_clerkUserId_startAt_idx" ON "CalendarEntry"("providerUserId", "startAt");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Resource_slug_key" ON "Resource"("slug");
@@ -270,49 +270,49 @@ CREATE UNIQUE INDEX "Resource_slug_key" ON "Resource"("slug");
 CREATE INDEX "Resource_category_isPublished_idx" ON "Resource"("category", "isPublished");
 
 -- CreateIndex
-CREATE INDEX "ResourceInteraction_clerkUserId_idx" ON "ResourceInteraction"("clerkUserId");
+CREATE INDEX "ResourceInteraction_clerkUserId_idx" ON "ResourceInteraction"("providerUserId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "ResourceInteraction_resourceId_clerkUserId_key" ON "ResourceInteraction"("resourceId", "clerkUserId");
+CREATE UNIQUE INDEX "ResourceInteraction_resourceId_clerkUserId_key" ON "ResourceInteraction"("resourceId", "providerUserId");
 
 -- CreateIndex
-CREATE INDEX "Notification_clerkUserId_readAt_createdAt_idx" ON "Notification"("clerkUserId", "readAt", "createdAt");
+CREATE INDEX "Notification_clerkUserId_readAt_createdAt_idx" ON "Notification"("providerUserId", "readAt", "createdAt");
 
 -- AddForeignKey
-ALTER TABLE "MoodEntry" ADD CONSTRAINT "MoodEntry_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "MoodEntry" ADD CONSTRAINT "MoodEntry_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AIConversation" ADD CONSTRAINT "AIConversation_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AIConversation" ADD CONSTRAINT "AIConversation_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ConversationMessage" ADD CONSTRAINT "ConversationMessage_conversationId_fkey" FOREIGN KEY ("conversationId") REFERENCES "AIConversation"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CommunityPost" ADD CONSTRAINT "CommunityPost_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "CommunityPost" ADD CONSTRAINT "CommunityPost_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PostReply" ADD CONSTRAINT "PostReply_postId_fkey" FOREIGN KEY ("postId") REFERENCES "CommunityPost"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PostReply" ADD CONSTRAINT "PostReply_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PostReply" ADD CONSTRAINT "PostReply_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PostReaction" ADD CONSTRAINT "PostReaction_postId_fkey" FOREIGN KEY ("postId") REFERENCES "CommunityPost"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PostReaction" ADD CONSTRAINT "PostReaction_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PostReaction" ADD CONSTRAINT "PostReaction_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CommunityEvent" ADD CONSTRAINT "CommunityEvent_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "CommunityEvent" ADD CONSTRAINT "CommunityEvent_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "EventRsvp" ADD CONSTRAINT "EventRsvp_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "CommunityEvent"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "EventRsvp" ADD CONSTRAINT "EventRsvp_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "EventRsvp" ADD CONSTRAINT "EventRsvp_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CalendarEntry" ADD CONSTRAINT "CalendarEntry_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "CalendarEntry" ADD CONSTRAINT "CalendarEntry_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "CalendarEntry" ADD CONSTRAINT "CalendarEntry_communityEventId_fkey" FOREIGN KEY ("communityEventId") REFERENCES "CommunityEvent"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -321,7 +321,7 @@ ALTER TABLE "CalendarEntry" ADD CONSTRAINT "CalendarEntry_communityEventId_fkey"
 ALTER TABLE "ResourceInteraction" ADD CONSTRAINT "ResourceInteraction_resourceId_fkey" FOREIGN KEY ("resourceId") REFERENCES "Resource"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ResourceInteraction" ADD CONSTRAINT "ResourceInteraction_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ResourceInteraction" ADD CONSTRAINT "ResourceInteraction_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Notification" ADD CONSTRAINT "Notification_clerkUserId_fkey" FOREIGN KEY ("clerkUserId") REFERENCES "UserProfile"("clerkUserId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Notification" ADD CONSTRAINT "Notification_clerkUserId_fkey" FOREIGN KEY ("providerUserId") REFERENCES "UserProfile"("providerUserId") ON DELETE RESTRICT ON UPDATE CASCADE;

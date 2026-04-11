@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { db } from "@db";
 
 import { getAuthUserId } from "../auth";
+import { ensureUserProfile } from "../queries/user-profile";
 import type { MoodEntryInput, UpdateMoodEntryInput } from "../schemas/mood";
 import { MoodEntrySchema, UpdateMoodEntrySchema } from "../schemas/mood";
 
@@ -30,9 +31,10 @@ export async function createMoodEntry(input: MoodEntryInput): Promise<Result<Moo
   const dateObj = new Date(`${date}T00:00:00.000Z`);
 
   try {
+    await ensureUserProfile(userId);
     const entry = await db.moodEntry.upsert({
-      where: { clerkUserId_date: { clerkUserId: userId, date: dateObj } },
-      create: { clerkUserId: userId, mood, note, emotions: emotions ?? [], date: dateObj },
+      where: { providerUserId_date: { providerUserId: userId, date: dateObj } },
+      create: { providerUserId: userId, mood, note, emotions: emotions ?? [], date: dateObj },
       update: { mood, note, emotions: emotions ?? [] },
     });
 
@@ -67,7 +69,7 @@ export async function updateMoodEntry(
   try {
     // Verify ownership
     const existing = await db.moodEntry.findFirst({
-      where: { id, clerkUserId: userId },
+      where: { id, providerUserId: userId },
     });
     if (!existing) return { error: "Entry not found" };
 

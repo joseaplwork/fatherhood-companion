@@ -18,7 +18,7 @@ export async function getActiveConversationMessages(): Promise<ChatMessageRow[]>
   if (!userId) return [];
 
   const conversation = await db.aIConversation.findFirst({
-    where: { clerkUserId: userId, archivedAt: null },
+    where: { providerUserId: userId, archivedAt: null },
     orderBy: { updatedAt: "desc" },
     include: {
       messages: {

@@ -7,9 +7,13 @@ export type CompanionContext = {
 };
 
 function childDescription(child: ChildProfile): string {
+  // birthDate is MM-YYYY, e.g. "03-2021"
+  const [mm, yyyy] = child.birthDate.split("-");
+  const birthMonth = Number.parseInt(mm ?? "1", 10);
+  const birthYear = Number.parseInt(yyyy ?? "0", 10);
   const now = new Date();
-  let age = now.getFullYear() - child.birthYear;
-  if (now.getMonth() + 1 < child.birthMonth) age--;
+  let age = now.getFullYear() - birthYear;
+  if (now.getMonth() + 1 < birthMonth) age--;
   const safeAge = Math.max(0, age);
   return `${child.nickname} (${safeAge} yr${safeAge !== 1 ? "s" : ""} old)`;
 }

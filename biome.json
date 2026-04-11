@@ -34,7 +34,19 @@
             "groups": [
               [":NODE:", ":BUN:"],
               ":BLANK_LINE:",
-              ["@*/**", "ai", "ai/**", "next", "next/**", "react", "react/**", "zod", "zod/**"],
+              [
+                "@*/**",
+                "ai",
+                "ai/**",
+                "next",
+                "next/**",
+                "react",
+                "react/**",
+                "zod",
+                "zod/**",
+                "@ai-sdk/google",
+                "@ai-sdk/openai"
+              ],
               ":BLANK_LINE:",
               ["@ai", "@ai/**", "@db", "@domain", "@domain/**", "@ui", "@ui/**", "@web/**"],
               ":BLANK_LINE:",

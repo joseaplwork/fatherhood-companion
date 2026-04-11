@@ -24,3 +24,16 @@ export async function setUserPrivateMetadata(
   const client = await clerkClient();
   await client.users.updateUserMetadata(userId, { privateMetadata: metadata });
 }
+
+/**
+ * Merges key/value pairs into the current user's public metadata.
+ * Public metadata is included in the session JWT claims and is readable
+ * by middleware without a database round-trip.
+ */
+export async function setUserPublicMetadata(
+  userId: string,
+  metadata: Record<string, unknown>,
+): Promise<void> {
+  const client = await clerkClient();
+  await client.users.updateUserMetadata(userId, { publicMetadata: metadata });
+}

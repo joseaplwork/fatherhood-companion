@@ -2,7 +2,9 @@
 
 ## Status
 
-Decided
+Superseded by [ADR 0007 — AI Provider Abstraction](./0007-ai-provider-abstraction.md).
+The Vercel AI SDK and prompt/tool conventions below remain in force; only the provider coupling
+(Anthropic-specific) has been replaced by the `getAIModel()` factory.
 
 ## Context
 

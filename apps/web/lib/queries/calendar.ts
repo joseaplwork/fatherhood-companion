@@ -24,7 +24,7 @@ export async function getUpcomingWeekEvents(): Promise<UpcomingEventRow[]> {
 
   return db.calendarEntry.findMany({
     where: {
-      clerkUserId: userId,
+      providerUserId: userId,
       startAt: { gte: start, lt: end },
     },
     orderBy: { startAt: "asc" },

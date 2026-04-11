@@ -3,17 +3,18 @@ import type { NextRequest } from "next/server";
 
 import {
   AI_CONFIG,
-  anthropic,
   buildCompanionSystemPrompt,
   CRISIS_RESOURCES,
   containsCrisisKeyword,
   generateSummary,
+  getAIModel,
   shouldSummarize,
 } from "@ai";
 import { db } from "@db";
 
 import { getAuthUserId } from "../../../lib/auth";
 import { getUserContext } from "../../../lib/queries/user";
+import { ensureUserProfile } from "../../../lib/queries/user-profile";
 
 type IncomingMessage = {
   role: "user" | "assistant";
@@ -23,6 +24,8 @@ type IncomingMessage = {
 export async function POST(req: NextRequest) {
   const userId = await getAuthUserId();
   if (!userId) return new Response("Unauthorized", { status: 401 });
+
+  await ensureUserProfile(userId);
 
   const { messages } = (await req.json()) as { messages: IncomingMessage[] };
 
@@ -34,7 +37,7 @@ export async function POST(req: NextRequest) {
   since.setDate(since.getDate() - 6);
   since.setUTCHours(0, 0, 0, 0);
   const recentMoods = await db.moodEntry.findMany({
-    where: { clerkUserId: userId, date: { gte: since } },
+    where: { providerUserId: userId, date: { gte: since } },
     select: { mood: true },
   });
   const moodAverage =
@@ -48,12 +51,12 @@ export async function POST(req: NextRequest) {
 
   // Get or create the single active AI Buddy conversation
   let conversation = await db.aIConversation.findFirst({
-    where: { clerkUserId: userId, archivedAt: null },
+    where: { providerUserId: userId, archivedAt: null },
     orderBy: { updatedAt: "desc" },
   });
   if (!conversation) {
     conversation = await db.aIConversation.create({
-      data: { clerkUserId: userId, title: "AI Buddy" },
+      data: { providerUserId: userId, title: "AI Buddy" },
     });
   }
   const conversationId = conversation.id;
@@ -76,7 +79,7 @@ export async function POST(req: NextRequest) {
   });
 
   const result = streamText({
-    model: anthropic(AI_CONFIG.model),
+    model: getAIModel(),
     system,
     messages,
     maxTokens: AI_CONFIG.maxTokens,

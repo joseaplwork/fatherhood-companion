@@ -1,8 +1,8 @@
 import { SUMMARY_TRIGGER_COUNT } from "@fatherhood-companion/domain";
 import { generateText } from "ai";
 
-import { AI_CONFIG, anthropic } from "../config";
 import { buildSummarizePrompt } from "../prompts/summarize";
+import { getAIModel } from "../providers";
 
 export type MessageLike = {
   role: "USER" | "ASSISTANT";
@@ -21,7 +21,7 @@ export async function generateSummary(messages: MessageLike[]): Promise<string> 
     .join("\n");
 
   const { text } = await generateText({
-    model: anthropic(AI_CONFIG.model),
+    model: getAIModel(),
     prompt: buildSummarizePrompt(conversationText),
     maxTokens: 256,
   });

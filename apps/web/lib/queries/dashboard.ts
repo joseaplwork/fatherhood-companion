@@ -22,18 +22,18 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
 
   const [recentMoods, unreadCount] = await Promise.all([
     db.moodEntry.findMany({
-      where: { clerkUserId: userId },
+      where: { providerUserId: userId },
       orderBy: { date: "desc" },
       take: 5,
       select: { id: true, mood: true, note: true, emotions: true, imageUrl: true, date: true },
     }),
     db.notification.count({
-      where: { clerkUserId: userId, readAt: null },
+      where: { providerUserId: userId, readAt: null },
     }),
   ]);
 
   const weeklyMoods = await db.moodEntry.findMany({
-    where: { clerkUserId: userId, date: { gte: since } },
+    where: { providerUserId: userId, date: { gte: since } },
     select: { mood: true },
   });
 

@@ -16,7 +16,7 @@ export async function getMoodHistory(limit = 30): Promise<MoodEntryRow[]> {
   if (!userId) return [];
 
   return db.moodEntry.findMany({
-    where: { clerkUserId: userId },
+    where: { providerUserId: userId },
     orderBy: { date: "desc" },
     take: limit,
     select: { id: true, mood: true, note: true, emotions: true, imageUrl: true, date: true },
@@ -29,7 +29,7 @@ export async function getMoodByDate(date: string): Promise<MoodEntryRow | null> 
 
   const dateObj = new Date(`${date}T00:00:00.000Z`);
   return db.moodEntry.findUnique({
-    where: { clerkUserId_date: { clerkUserId: userId, date: dateObj } },
+    where: { providerUserId_date: { providerUserId: userId, date: dateObj } },
     select: { id: true, mood: true, note: true, emotions: true, imageUrl: true, date: true },
   });
 }
@@ -44,7 +44,7 @@ export async function getMoodTrends(): Promise<number[]> {
   since.setUTCHours(0, 0, 0, 0);
 
   const entries = await db.moodEntry.findMany({
-    where: { clerkUserId: userId, date: { gte: since } },
+    where: { providerUserId: userId, date: { gte: since } },
     select: { mood: true, date: true },
     orderBy: { date: "asc" },
   });

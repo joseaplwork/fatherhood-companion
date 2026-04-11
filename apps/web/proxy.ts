@@ -1,11 +1,34 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)", "/api/webhooks(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) {
-    await auth.protect();
+  if (isPublicRoute(req)) return NextResponse.next();
+
+  // Require authentication — redirects to sign-in if unauthenticated
+  const { sessionClaims } = await auth.protect();
+
+  // Never apply the onboarding gate to API routes
+  const { pathname } = req.nextUrl;
+  if (pathname.startsWith("/api/")) return NextResponse.next();
+
+  // Cookie is set synchronously by the server action — reliable immediately.
+  // JWT claim (sessionClaims.metadata.onboardingComplete) is a fallback for
+  // returning users whose cookie may have been cleared.
+  const cookieComplete = req.cookies.get("onboarding_complete")?.value === "1";
+  const claimComplete = sessionClaims?.metadata?.onboardingComplete === true;
+  const onboardingComplete = cookieComplete || claimComplete;
+
+  if (!onboardingComplete && pathname !== "/onboarding") {
+    return NextResponse.redirect(new URL("/onboarding", req.url));
   }
+
+  if (onboardingComplete && pathname === "/onboarding") {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
+  }
+
+  return NextResponse.next();
 });
 
 export const config = {

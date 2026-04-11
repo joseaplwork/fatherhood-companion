@@ -2,7 +2,7 @@ import type { OnboardingState, SubscriptionTier } from "../enums/index";
 
 export type UserProfile = {
   id: string;
-  clerkUserId: string;
+  providerUserId: string;
   bio: string | null;
   location: string | null;
   interests: string[];
@@ -21,8 +21,9 @@ export type ChildProfile = {
   id: string;
   /** Preferred name or nickname — never stored in the database */
   nickname: string;
-  /** Birth year — e.g. 2020 */
-  birthYear: number;
-  /** Birth month (1–12). Day is intentionally omitted for privacy. */
-  birthMonth: number;
+  /**
+   * Birth month and year in MM-YYYY format, e.g. "03-2021".
+   * Day is intentionally omitted for privacy.
+   */
+  birthDate: string;
 };

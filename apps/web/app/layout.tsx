@@ -25,7 +25,12 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ClerkProvider>{children}</ClerkProvider>
+        <ClerkProvider
+          signUpFallbackRedirectUrl="/onboarding"
+          signInFallbackRedirectUrl="/dashboard"
+        >
+          {children}
+        </ClerkProvider>
       </body>
     </html>
   );

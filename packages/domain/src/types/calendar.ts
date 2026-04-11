@@ -2,7 +2,7 @@ import type { CalendarEntryType } from "../enums/index";
 
 export type CalendarEntry = {
   id: string;
-  clerkUserId: string;
+  providerUserId: string;
   title: string;
   description: string | null;
   type: CalendarEntryType;

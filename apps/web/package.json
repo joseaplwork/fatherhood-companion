@@ -13,6 +13,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "svix": "^1.0.0",
     "@ai-sdk/anthropic": "^1.0.0",
     "@clerk/nextjs": "^6.0.0",
     "@fatherhood-companion/ai": "workspace:*",

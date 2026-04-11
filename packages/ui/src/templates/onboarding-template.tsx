@@ -24,7 +24,7 @@ export function OnboardingTemplate({
   canAdvance = true,
   isLastStep = false,
 }: OnboardingTemplateProps) {
-  const progress = step / totalSteps;
+  const progress = (step / totalSteps) * 100;
 
   return (
     <main className="flex min-h-screen flex-col bg-surface px-6 py-8">
