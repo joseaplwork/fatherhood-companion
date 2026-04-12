@@ -1,7 +1,6 @@
 "use client";
 
-import { useClerk } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 import { useCallback, useState } from "react";
 
 import type { ChildProfile } from "@domain";
@@ -12,8 +11,7 @@ import type { InterestKey } from "../../lib/schemas/onboarding";
 import { TOTAL_STEPS } from "./onboarding-constants";
 
 export function useOnboardingFlow() {
-  const router = useRouter();
-  const { session } = useClerk();
+  const { user } = useUser();
 
   const [step, setStep] = useState(1);
   const [bio, setBio] = useState("");
@@ -59,14 +57,16 @@ export function useOnboardingFlow() {
         return;
       }
 
-      await session?.reload();
-      router.push("/dashboard");
+      // Reload the user so the fresh JWT with onboardingComplete=true
+      // is sent on the next navigation request — middleware reads it directly.
+      await user?.reload();
+      window.location.assign("/dashboard");
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);
     }
-  }, [bio, children, interests, location, router, session]);
+  }, [bio, children, interests, location, user]);
 
   const goNext = useCallback(() => {
     if (step < TOTAL_STEPS) {

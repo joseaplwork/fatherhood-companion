@@ -13,12 +13,7 @@ export default clerkMiddleware(async (auth, req) => {
   const { pathname } = req.nextUrl;
   if (pathname.startsWith("/api/")) return NextResponse.next();
 
-  // Cookie is set synchronously by the server action — reliable immediately.
-  // JWT claim (sessionClaims.metadata.onboardingComplete) is a fallback for
-  // returning users whose cookie may have been cleared.
-  const cookieComplete = req.cookies.get("onboarding_complete")?.value === "1";
-  const claimComplete = sessionClaims?.metadata?.onboardingComplete === true;
-  const onboardingComplete = cookieComplete || claimComplete;
+  const onboardingComplete = sessionClaims?.metadata?.onboardingComplete === true;
 
   if (!onboardingComplete && pathname !== "/onboarding") {
     return NextResponse.redirect(new URL("/onboarding", req.url));

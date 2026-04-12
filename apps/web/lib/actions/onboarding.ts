@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
 
 import { db } from "@db";
 
@@ -56,16 +55,6 @@ export async function completeOnboarding(input: OnboardingInput): Promise<Result
     // Must happen AFTER the DB write succeeds so the gate only opens for
     // users with a valid profile row.
     await setUserPublicMetadata(userId, { onboardingComplete: true });
-
-    // Set a plain HTTP cookie so middleware can read onboarding completion
-    // immediately — Clerk's JWT claim propagation is async and too slow.
-    const cookieStore = await cookies();
-    cookieStore.set("onboarding_complete", "1", {
-      httpOnly: true,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 365,
-    });
 
     revalidatePath("/dashboard");
     return { data: { id: profile.id } };
