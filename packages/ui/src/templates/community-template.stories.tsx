@@ -45,7 +45,7 @@ const RightPanel = (
   <div className="flex flex-col gap-4">
     <p className="font-display text-sm font-semibold text-on-surface">Upcoming events</p>
     <EventCard
-      title="Dads Together — April Meetup"
+      title="Co-Parents Together — April Meetup"
       startAt="Sat 12 Apr · 10:00 AM"
       location="Manchester Community Centre"
       kind="IN_PERSON"

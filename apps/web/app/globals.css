@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@fatherhood-companion/ui/theme.css";
+@import "@grove-companion/ui/theme.css";
 @source "../../../packages/ui/src/**/*.tsx";
 
 @layer base {

@@ -1,4 +1,4 @@
-import type { ResourceCategory, ResourceType } from "@fatherhood-companion/domain";
+import type { ResourceCategory, ResourceType } from "@grove-companion/domain";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ResourceCard } from "../organisms/resource-card";

@@ -28,7 +28,7 @@ Everything outside identity and child profiles is owned by the application datab
 
 ### AIConversation + ConversationMessage
 
-A private conversation thread between a father and the AI companion.
+A private conversation thread between a co-parent and the AI companion.
 
 Conversations are never shared. Each conversation tracks a mood context to help the AI calibrate
 its tone. As conversations grow long, a rolling AI-generated summary is maintained to preserve
@@ -66,12 +66,12 @@ optional. RSVP status is: going, maybe, or not going.
 
 ### CalendarEntry
 
-A unified calendar entry owned by a father.
+A unified calendar entry owned by a co-parent.
 
 Entry types: personal, child care, custody, medical, school, community event, reminder.
 
 A calendar entry can reference a child (by numeric ID from Clerk metadata) or a CommunityEvent
-the father has RSVP'd to. Supports recurring events and per-entry color coding.
+the co-parent has RSVP'd to. Supports recurring events and per-entry color coding.
 
 ---
 
@@ -93,6 +93,19 @@ and new resource suggestions.
 
 ---
 
+### CoParent
+
+Private metadata about the other co-parent. Stored per-user and never shared between accounts
+unless explicitly linked.
+
+Fields: name, contact preference (unspecified, app, text, email, phone, legal-only), private
+communication notes, and a free-text custody arrangement summary.
+
+This entity exists entirely for the owning user's private reference. The other co-parent is not
+a user of the system unless they independently sign up.
+
+---
+
 ## Relationships at a Glance
 
 ```
@@ -105,6 +118,7 @@ Clerk User
        ├── EventRsvps → CommunityEvents
        ├── CalendarEntries → (optional child ref, optional event ref)
        ├── ResourceInteractions → Resources
+       ├── CoParent (one private record per user)
        └── Notifications
 ```
 

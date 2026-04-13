@@ -38,3 +38,11 @@ export type MessageRole = "USER" | "ASSISTANT";
 export type SubscriptionTier = "FREE" | "PREMIUM";
 
 export type OnboardingState = "PENDING" | "COMPLETE";
+
+export type CoParentContactPreference =
+  | "UNSPECIFIED"
+  | "APP"
+  | "TEXT"
+  | "EMAIL"
+  | "PHONE"
+  | "LEGAL_ONLY";

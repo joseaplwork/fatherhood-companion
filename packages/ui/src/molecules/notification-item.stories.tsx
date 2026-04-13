@@ -49,7 +49,7 @@ export const Read: Story = {
 export const EventReminder: Story = {
   name: "Event reminder",
   args: {
-    title: "Reminder: Dads Together meetup",
+    title: "Reminder: Co-Parents Together meetup",
     body: "Starting in 2 hours at the Manchester Community Centre.",
     time: "Just now",
     iconName: "event",

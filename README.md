@@ -1,4 +1,4 @@
-# Fatherhood Companion
+# Grove Companion
 
 AI-first pnpm monorepo for building products with predictable code generation, hard architectural boundaries, and explicit learning loops.
 

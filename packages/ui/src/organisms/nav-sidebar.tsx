@@ -32,7 +32,7 @@ export function NavSidebar({
     >
       {/* Logo */}
       <div className="px-4 pb-6">
-        <span className="font-display text-lg font-semibold text-primary">Dad Companion</span>
+        <span className="font-display text-lg font-semibold text-primary">Grove Companion</span>
       </div>
 
       {/* Navigation links */}

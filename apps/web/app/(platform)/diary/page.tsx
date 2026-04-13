@@ -1,7 +1,7 @@
 import { getMoodHistory, getMoodTrends } from "../../../lib/queries/mood";
 import { DiaryView } from "../../../views/diary/diary-view";
 
-export const metadata = { title: "Diary — Dad Companion" };
+export const metadata = { title: "Diary — Grove Companion" };
 
 export default async function DiaryPage() {
   const [entries, weeklyTrends] = await Promise.all([getMoodHistory(), getMoodTrends()]);

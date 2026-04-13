@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss";
 
 /**
- * Dad Companion design token config.
- * apps/web extends this via: import uiConfig from "@fatherhood-companion/ui/tailwind"
+ * Grove Companion design token config.
+ * apps/web extends this via: import uiConfig from "@grove-companion/ui/tailwind"
  *
  * Tokens derived from Stitch project 12996986170513421000 namedColors + DESIGN.md.
  */
@@ -63,7 +63,7 @@ const config: Config = {
       fontFamily: {
         // Display/headlines — technical, editorial (represents AI intelligence)
         display: ["Space Grotesk", "sans-serif"],
-        // Body/labels — warm, human touch (represents fatherhood)
+        // Body/labels — warm, human touch (represents the human connection)
         body: ["Manrope", "sans-serif"],
         // Override default sans with Manrope
         sans: ["Manrope", "sans-serif"],

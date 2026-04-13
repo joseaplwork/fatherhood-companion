@@ -18,4 +18,4 @@
 ## Notes
 
 - Framework-specific entrypoints such as `app/` are treated as presentation and composition layers.
-- Shared UI should come from `@fatherhood-companion/ui`, not local copies.
+- Shared UI should come from `@grove-companion/ui`, not local copies.

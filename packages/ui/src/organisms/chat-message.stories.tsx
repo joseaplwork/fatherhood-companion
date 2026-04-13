@@ -44,7 +44,7 @@ export const AssistantMessage: Story = {
   args: {
     sender: "assistant",
     content:
-      "Sleep issues are really common for single dads dealing with high stress. A few things that tend to help: a consistent wind-down routine, reducing screen time after 9 PM, and even a short 10-minute journaling session before bed.",
+      "Sleep issues are really common for co-parents dealing with high stress. A few things that tend to help: a consistent wind-down routine, reducing screen time after 9 PM, and even a short 10-minute journaling session before bed.",
     timestamp: "9:41 AM",
   },
 };

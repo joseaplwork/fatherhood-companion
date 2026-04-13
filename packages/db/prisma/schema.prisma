@@ -79,6 +79,15 @@ enum MessageRole {
   ASSISTANT
 }
 
+enum CoParentContactPreference {
+  UNSPECIFIED
+  APP
+  TEXT
+  EMAIL
+  PHONE
+  LEGAL_ONLY
+}
+
 // ---------------------------------------------------------------------------
 // Models
 // ---------------------------------------------------------------------------
@@ -301,4 +310,16 @@ model Notification {
   createdAt   DateTime         @default(now())
 
   @@index([providerUserId, readAt, createdAt])
+}
+
+/// Private metadata about the other co-parent. Visible only to the owning user.
+model CoParent {
+  id                 String                    @id @default(cuid())
+  providerUserId     String                    @unique
+  name               String
+  contactPreference  CoParentContactPreference @default(UNSPECIFIED)
+  communicationNotes String?
+  custodyArrangement String?
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
 }

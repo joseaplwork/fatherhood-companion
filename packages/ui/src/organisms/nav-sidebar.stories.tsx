@@ -43,7 +43,7 @@ export const WithAvatar: Story = {
   args: {
     links: NAV_LINKS,
     userName: "Marcus Davies",
-    userAvatarSrc: "https://api.dicebear.com/8.x/thumbs/svg?seed=dad",
+    userAvatarSrc: "https://api.dicebear.com/8.x/thumbs/svg?seed=grove",
     onSignOut: () => {},
   },
 };

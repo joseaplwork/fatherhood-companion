@@ -1,4 +1,4 @@
-import type { EventKind, RsvpStatus } from "@fatherhood-companion/domain";
+import type { EventKind, RsvpStatus } from "@grove-companion/domain";
 
 import { Icon } from "../atoms/icon";
 

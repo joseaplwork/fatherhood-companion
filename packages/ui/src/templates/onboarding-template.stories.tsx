@@ -5,8 +5,8 @@ import { OnboardingTemplate } from "./onboarding-template";
 
 const STEPS = [
   {
-    title: "Welcome to Dad Companion",
-    body: "A private space to track your wellbeing, reflect on your journey, and connect with a community of dads.",
+    title: "Welcome to Grove Companion",
+    body: "A private space to track your wellbeing, reflect on your journey, and connect with a community of co-parents.",
   },
   {
     title: "How are you feeling?",
@@ -14,7 +14,7 @@ const STEPS = [
   },
   {
     title: "You're not alone",
-    body: "Connect with other single dads, find resources, and get AI-powered insights — all in one place.",
+    body: "Connect with other co-parents, find resources, and get AI-powered insights — all in one place.",
   },
 ];
 
@@ -74,7 +74,7 @@ export const Step1: Story = {
     children: (
       <div className="flex flex-col gap-4 pt-8">
         <h1 className="font-display text-2xl font-semibold text-on-surface">
-          Welcome to Dad Companion
+          Welcome to Grove Companion
         </h1>
         <p className="font-body text-base text-on-surface-variant leading-relaxed">
           A private space to track your wellbeing, reflect on your journey, and connect with a

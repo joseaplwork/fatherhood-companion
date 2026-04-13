@@ -34,7 +34,7 @@ export const Full: Story = {
   args: {
     name: "Marcus Davies",
     location: "Manchester, UK",
-    bio: "Single dad of two. Co-parenting veteran. Happy to chat about custody schedules.",
+    bio: "Co-parent of two. Co-parenting veteran. Happy to chat about custody schedules.",
     isVerified: true,
     helpCount: 34,
   },
@@ -54,7 +54,7 @@ export const WithAvatar: Story = {
     name: "Raj Patel",
     avatarSrc: "https://api.dicebear.com/8.x/thumbs/svg?seed=raj",
     location: "London, UK",
-    bio: "Dad of one. Mental health advocate.",
+    bio: "Co-parent of one. Mental health advocate.",
     isVerified: false,
   },
 };

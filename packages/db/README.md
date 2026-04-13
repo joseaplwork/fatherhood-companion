@@ -1,4 +1,4 @@
-# @fatherhood-companion/db
+# @grove-companion/db
 
 ## Responsibility
 
@@ -22,6 +22,6 @@ It is the single source of truth for all database structure and access.
 
 ## Notes
 
-- Run `pnpm --filter @fatherhood-companion/db db:generate` after schema changes.
-- Run `pnpm --filter @fatherhood-companion/db db:migrate` to apply migrations.
+- Run `pnpm --filter @grove-companion/db db:generate` after schema changes.
+- Run `pnpm --filter @grove-companion/db db:migrate` to apply migrations.
 - `DATABASE_URL` must be set in `.env.local` at the repo root or in the consuming app.

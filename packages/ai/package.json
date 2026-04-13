@@ -1,5 +1,5 @@
 {
-  "name": "@fatherhood-companion/ai",
+  "name": "@grove-companion/ai",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@ai-sdk/google": "^1.0.0",
     "@ai-sdk/openai": "^1.0.0",
-    "@fatherhood-companion/domain": "workspace:*",
+    "@grove-companion/domain": "workspace:*",
     "ai": "^4.0.0",
     "zod": "^3.25.76"
   }

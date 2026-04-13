@@ -44,7 +44,7 @@ export const Pinned: Story = {
   args: {
     title: "Welcome to the Community Hub — read first!",
     content: "House rules, how to find a buddy, and what to expect here.",
-    authorName: "Dad Companion Team",
+    authorName: "Grove Companion Team",
     createdAt: "1 week ago",
     isPinned: true,
     replyCount: 3,
@@ -71,8 +71,8 @@ export const NoReactions: Story = {
   args: {
     title: "First post — feeling nervous!",
     content:
-      "Hi everyone, just joined. Single dad of one here, 18 months in. Not sure where to start.",
-    authorName: "NewDad_2025",
+      "Hi everyone, just joined. Co-parent of one here, 18 months in. Not sure where to start.",
+    authorName: "NewCoParent_2025",
     createdAt: "5 min ago",
     replyCount: 0,
     reactions: [],

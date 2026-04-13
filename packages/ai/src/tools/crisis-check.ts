@@ -1,4 +1,4 @@
-import { CRISIS_KEYWORDS } from "@fatherhood-companion/domain";
+import { CRISIS_KEYWORDS } from "@grove-companion/domain";
 import { tool } from "ai";
 import { z } from "zod";
 

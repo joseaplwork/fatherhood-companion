@@ -45,7 +45,9 @@ export function UserCard({
           <p className="font-body text-xs text-on-surface-variant line-clamp-2 mt-1">{bio}</p>
         )}
         {helpCount !== undefined && (
-          <span className="font-body text-xs text-primary mt-1 block">Helped {helpCount} dads</span>
+          <span className="font-body text-xs text-primary mt-1 block">
+            Helped {helpCount} co-parents
+          </span>
         )}
       </div>
     </div>

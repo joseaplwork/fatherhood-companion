@@ -5,8 +5,8 @@ const db = new PrismaClient();
 const resources = [
   // ── Co-Parenting ─────────────────────────────────────────────────────────
   {
-    slug: "navigating-non-custodial-fatherhood",
-    title: "Navigating Non-Custodial Fatherhood",
+    slug: "navigating-non-custodial-co-parenting",
+    title: "Navigating Non-Custodial Co-Parenting",
     description:
       "A practical guide to staying actively involved in your children's lives when you don't have primary custody — covering communication strategies, visit planning, and maintaining connection.",
     type: "GUIDE",
@@ -33,7 +33,7 @@ const resources = [
   },
   // ── Mental Health ─────────────────────────────────────────────────────────
   {
-    slug: "understanding-dad-grief-custody",
+    slug: "understanding-grief-after-custody",
     title: "Understanding Grief After Custody Changes",
     description:
       "Losing daily access to your children triggers a real and often unacknowledged grief process. This guide helps you name what you're feeling and move through it with purpose.",
@@ -52,10 +52,10 @@ const resources = [
     isPublished: true,
   },
   {
-    slug: "when-to-seek-therapy-as-a-dad",
-    title: "When (and How) to Seek Therapy as a Dad",
+    slug: "when-to-seek-therapy-as-a-co-parent",
+    title: "When (and How) to Seek Therapy as a Co-Parent",
     description:
-      "A straightforward look at what therapy actually involves, how to find an affordable provider, and why asking for professional support is one of the strongest things a father can do.",
+      "A straightforward look at what therapy actually involves, how to find an affordable provider, and why asking for professional support is one of the strongest things a co-parent can do.",
     type: "ARTICLE",
     category: "MENTAL_HEALTH",
     isPublished: true,
@@ -63,7 +63,7 @@ const resources = [
   // ── Legal ────────────────────────────────────────────────────────────────
   {
     slug: "custody-agreement-basics",
-    title: "Custody Agreement Basics: What Every Dad Should Know",
+    title: "Custody Agreement Basics: What Every Co-Parent Should Know",
     description:
       "A plain-English breakdown of custody terminology, how parenting plans work, and questions to ask your attorney. Not legal advice — a starting point to understand the landscape.",
     type: "GUIDE",
@@ -101,16 +101,16 @@ const resources = [
   // ── Self-Care ─────────────────────────────────────────────────────────────
   {
     slug: "building-your-support-network",
-    title: "Building Your Support Network as a Single Dad",
+    title: "Building Your Support Network as a Co-Parent",
     description:
-      "Practical steps to identify and strengthen the relationships that sustain you — friends, family, fellow dads, and community — so you're not carrying this alone.",
+      "Practical steps to identify and strengthen the relationships that sustain you — friends, family, fellow co-parents, and community — so you're not carrying this alone.",
     type: "ARTICLE",
     category: "SELF_CARE",
     isPublished: true,
   },
   {
-    slug: "sleep-and-resilience-for-dads",
-    title: "Sleep, Stress, and Resilience: A Dad's Survival Guide",
+    slug: "sleep-and-resilience-for-co-parents",
+    title: "Sleep, Stress, and Resilience: A Co-Parent's Survival Guide",
     description:
       "The science of why sleep is non-negotiable and a realistic plan for improving yours, even when parenting anxiety makes switching off feel impossible.",
     type: "MINI_COURSE",

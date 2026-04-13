@@ -4,6 +4,7 @@
 export * from "./constants/index";
 export * from "./enums/index";
 export * from "./types/calendar";
+export * from "./types/co-parent";
 export * from "./types/community";
 export * from "./types/conversation";
 export * from "./types/mood";

@@ -8,7 +8,7 @@ Storybook 10 is configured and working in `packages/ui`. All stories pass typech
 
 **Why:** User wanted to extract Stitch designs into tokens and add atomic-design stories to visualise component differences.
 
-**How to apply:** Run `pnpm --filter @fatherhood-companion/ui dev` to launch Storybook on port 6006.
+**How to apply:** Run `pnpm --filter @grove-companion/ui dev` to launch Storybook on port 6006.
 
 **What was created:**
 - `.storybook/main.ts` — Tailwind v4 vite plugin wired in via `viteFinal`

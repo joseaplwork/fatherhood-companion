@@ -27,7 +27,7 @@ export const WithInitials: Story = {
 
 export const WithImage: Story = {
   args: {
-    src: "https://api.dicebear.com/8.x/thumbs/svg?seed=dad",
+    src: "https://api.dicebear.com/8.x/thumbs/svg?seed=grove",
     name: "Marcus Davies",
     size: "md",
   },

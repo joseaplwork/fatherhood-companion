@@ -57,8 +57,8 @@ export const Article: Story = {
 export const VideoWithThumbnail: Story = {
   name: "Video with thumbnail",
   args: {
-    title: "5-Minute Mindfulness for Dads",
-    description: "A short guided session designed for busy dads who have just 5 minutes.",
+    title: "5-Minute Mindfulness for Co-Parents",
+    description: "A short guided session designed for busy co-parents who have just 5 minutes.",
     type: "VIDEO",
     category: "MENTAL_HEALTH",
     thumbnailUrl: "https://picsum.photos/seed/mindfulness/400/200",

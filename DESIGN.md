@@ -2,7 +2,7 @@
 
 ## 1. Overview & Creative North Star: "The Digital Concierge"
 
-The creative objective of this design system is to move away from the "industrial" look of traditional AI tools and toward a "Digital Concierge" experience. For single fathers, the platform must feel like a sophisticated, calm, and highly capable partner. We achieve this by rejecting rigid, boxy layouts in favor of **Organic Glassmorphism**—a style that blends the futuristic precision of AI with the grounded, earthy warmth of Sage and Cream.
+The creative objective of this design system is to move away from the "industrial" look of traditional AI tools and toward a "Digital Concierge" experience. For co-parents navigating separation, the platform must feel like a sophisticated, calm, and highly capable partner. We achieve this by rejecting rigid, boxy layouts in favor of **Organic Glassmorphism**—a style that blends the futuristic precision of AI with the grounded, earthy warmth of Sage and Cream.
 
 The "Template Look" is our enemy. We will break the grid using intentional asymmetry, where content "floats" on varying planes of depth. Overlapping elements and high-contrast typography scales (the juxtaposition of the technical *Space Grotesk* with the humanistic *Manrope*) create an editorial feel that signals premium quality and intentionality.
 
@@ -33,10 +33,10 @@ To emphasize the AI-first nature, floating elements (modals, floating action but
 
 ## 3. Typography: The Technical & The Human
 
-We use a dual-typeface system to balance the high-tech AI capabilities with the grounded nature of fatherhood.
+We use a dual-typeface system to balance the high-tech AI capabilities with the grounded, human nature of co-parenting.
 
 * **Display & Headlines (Space Grotesk):** A technical, wide-aperture sans-serif. Use `display-lg` (3.5rem) for hero moments to create an authoritative, editorial impact. This font represents the "AI" intelligence.
-* **Body & Labels (Manrope):** A modern, highly legible sans-serif with a warm, human touch. This represents the "Dad" side of the platform—approachable and clear.
+* **Body & Labels (Manrope):** A modern, highly legible sans-serif with a warm, human touch. This represents the human side of the platform—approachable and clear.
 
 **Hierarchy Strategy:**
 Maintain a high-contrast ratio. A `display-md` headline should often be paired with a `body-sm` label to create significant white space, making the interface feel "breathable" and premium.

@@ -33,9 +33,9 @@ type Story = StoryObj<typeof meta>;
 export const InPerson: Story = {
   name: "In person event",
   args: {
-    title: "Dads Together — Manchester Meetup",
+    title: "Co-Parents Together — Manchester Meetup",
     description:
-      "Monthly gathering for single dads in Manchester. Informal coffee chat, bring the kids.",
+      "Monthly gathering for co-parents in Manchester. Informal coffee chat, bring the kids.",
     startAt: "Sat 5 Apr · 10:00 AM",
     location: "Manchester Community Centre, M1 2WD",
     kind: "IN_PERSON",
@@ -69,7 +69,7 @@ export const WithRsvp: Story = {
 export const MaybeRsvp: Story = {
   name: "RSVP'd maybe",
   args: {
-    title: "Mindfulness for Dads",
+    title: "Mindfulness for Co-Parents",
     startAt: "Tue 1 Apr · 8:00 PM",
     kind: "VIRTUAL",
     rsvpStatus: "MAYBE",

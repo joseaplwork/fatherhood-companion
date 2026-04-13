@@ -32,5 +32,5 @@ export const WithValue: Story = {
 };
 
 export const CustomPlaceholder: Story = {
-  args: { placeholder: "Find a dad in your area…" },
+  args: { placeholder: "Find a co-parent in your area…" },
 };

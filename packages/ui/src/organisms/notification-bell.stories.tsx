@@ -22,7 +22,7 @@ const NOTIFICATIONS = [
   {
     id: "3",
     title: "Event reminder",
-    body: "Dads Together meetup starts in 2 hours.",
+    body: "Co-Parents Together meetup starts in 2 hours.",
     time: "2 hr ago",
     iconName: "event",
     isRead: true,

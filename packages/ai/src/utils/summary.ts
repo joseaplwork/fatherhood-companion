@@ -1,4 +1,4 @@
-import { SUMMARY_TRIGGER_COUNT } from "@fatherhood-companion/domain";
+import { SUMMARY_TRIGGER_COUNT } from "@grove-companion/domain";
 import { generateText } from "ai";
 
 import { buildSummarizePrompt } from "../prompts/summarize";
@@ -17,7 +17,7 @@ export function shouldSummarize(messageCount: number): boolean {
 /** Compress a list of messages into a rolling summary string */
 export async function generateSummary(messages: MessageLike[]): Promise<string> {
   const conversationText = messages
-    .map((m) => `${m.role === "USER" ? "Dad" : "Companion"}: ${m.content}`)
+    .map((m) => `${m.role === "USER" ? "User" : "Companion"}: ${m.content}`)
     .join("\n");
 
   const { text } = await generateText({

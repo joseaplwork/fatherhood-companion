@@ -4,7 +4,7 @@ import { getMoodTrends } from "../../../lib/queries/mood";
 import { getUserContext } from "../../../lib/queries/user";
 import { DashboardView } from "../../../views/dashboard/dashboard-view";
 
-export const metadata = { title: "Dashboard — Dad Companion" };
+export const metadata = { title: "Dashboard — Grove Companion" };
 
 export default async function DashboardPage() {
   const [{ userName }, summary, weeklyTrends, upcomingEvents] = await Promise.all([

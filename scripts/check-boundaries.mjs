@@ -20,10 +20,10 @@ const workspaces = await loadWorkspaces(repoRoot);
  * Keep this map in sync with apps/web/tsconfig.json "paths".
  */
 const WORKSPACE_ALIASES = new Map([
-  ["@domain", "@fatherhood-companion/domain"],
-  ["@db", "@fatherhood-companion/db"],
-  ["@ai", "@fatherhood-companion/ai"],
-  ["@ui", "@fatherhood-companion/ui"],
+  ["@domain", "@grove-companion/domain"],
+  ["@db", "@grove-companion/db"],
+  ["@ai", "@grove-companion/ai"],
+  ["@ui", "@grove-companion/ui"],
 ]);
 
 /** Resolve a short alias to its canonical workspace package name, or return the specifier as-is. */

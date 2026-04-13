@@ -7,7 +7,7 @@ type Props = { params: Promise<{ date: string }> };
 
 export async function generateMetadata({ params }: Props) {
   const { date } = await params;
-  return { title: `${date} — Dad Companion` };
+  return { title: `${date} — Grove Companion` };
 }
 
 export default async function EntryPage({ params }: Props) {
