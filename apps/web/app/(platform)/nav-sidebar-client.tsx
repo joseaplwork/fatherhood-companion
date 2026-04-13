@@ -19,6 +19,7 @@ export function NavSidebarClient({ userName, userAvatarSrc }: NavSidebarClientPr
       links={NAV_LINKS}
       userName={userName}
       userAvatarSrc={userAvatarSrc}
+      logoSrc="/logo.png"
       onSignOut={() => signOut({ redirectUrl: "/sign-in" })}
     />
   );
