@@ -2,7 +2,7 @@ import type { MoodScale } from "../enums/index";
 
 export type MoodEntry = {
   id: string;
-  providerUserId: string;
+  userId: string;
   mood: MoodScale;
   note: string | null;
   imageUrl: string | null;

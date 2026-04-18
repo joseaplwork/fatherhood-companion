@@ -2,7 +2,7 @@ import type { MessageRole } from "../enums/index";
 
 export type AIConversation = {
   id: string;
-  providerUserId: string;
+  userId: string;
   title: string | null;
   summary: string | null;
   moodContext: number | null;

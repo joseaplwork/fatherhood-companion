@@ -1,17 +1,17 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { useCallback, useState } from "react";
 
 import type { ChildProfile } from "@domain";
 
 import { completeOnboarding } from "../../lib/actions/onboarding";
+import { useReloadUser } from "../../lib/auth-client";
 import type { InterestKey } from "../../lib/schemas/onboarding";
 
 import { TOTAL_STEPS } from "./onboarding-constants";
 
 export function useOnboardingFlow() {
-  const { user } = useUser();
+  const reloadUser = useReloadUser();
 
   const [step, setStep] = useState(1);
   const [bio, setBio] = useState("");
@@ -59,14 +59,14 @@ export function useOnboardingFlow() {
 
       // Reload the user so the fresh JWT with onboardingComplete=true
       // is sent on the next navigation request — middleware reads it directly.
-      await user?.reload();
+      await reloadUser();
       window.location.assign("/dashboard");
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);
     }
-  }, [bio, children, interests, location, user]);
+  }, [bio, children, interests, location, reloadUser]);
 
   const goNext = useCallback(() => {
     if (step < TOTAL_STEPS) {

@@ -12,9 +12,7 @@ import {
 } from "@ai";
 import { db } from "@db";
 
-import { getAuthUserId } from "../../../lib/auth";
-import { getUserContext } from "../../../lib/queries/user";
-import { ensureUserProfile } from "../../../lib/queries/user-profile";
+import { getSession } from "../../../lib/session";
 
 type IncomingMessage = {
   role: "user" | "assistant";
@@ -22,22 +20,16 @@ type IncomingMessage = {
 };
 
 export async function POST(req: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) return new Response("Unauthorized", { status: 401 });
-
-  await ensureUserProfile(userId);
+  const session = await getSession();
 
   const { messages } = (await req.json()) as { messages: IncomingMessage[] };
-
-  // Children come from Clerk private metadata — never stored in our DB
-  const { children } = await getUserContext();
 
   // Mood average over the last 7 days for context
   const since = new Date();
   since.setDate(since.getDate() - 6);
   since.setUTCHours(0, 0, 0, 0);
   const recentMoods = await db.moodEntry.findMany({
-    where: { providerUserId: userId, date: { gte: since } },
+    where: { userId: session.userId, date: { gte: since } },
     select: { mood: true },
   });
   const moodAverage =
@@ -51,12 +43,12 @@ export async function POST(req: NextRequest) {
 
   // Get or create the single active AI Buddy conversation
   let conversation = await db.aIConversation.findFirst({
-    where: { providerUserId: userId, archivedAt: null },
+    where: { userId: session.userId, archivedAt: null },
     orderBy: { updatedAt: "desc" },
   });
   if (!conversation) {
     conversation = await db.aIConversation.create({
-      data: { providerUserId: userId, title: "AI Buddy" },
+      data: { userId: session.userId, title: "AI Buddy" },
     });
   }
   const conversationId = conversation.id;
@@ -64,7 +56,7 @@ export async function POST(req: NextRequest) {
   const systemPrompt = buildCompanionSystemPrompt({
     moodAverage,
     conversationSummary: conversation.summary,
-    children,
+    children: session.children,
   });
 
   // Fast keyword crisis check before the LLM round-trip

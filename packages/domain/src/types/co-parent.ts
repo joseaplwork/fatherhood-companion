@@ -6,8 +6,8 @@ import type { CoParentContactPreference } from "../enums/index";
  */
 export type CoParent = {
   id: string;
-  /** Clerk user ID of the owner (the logged-in co-parent) */
-  providerUserId: string;
+  /** Internal UserProfile.id of the owner */
+  userId: string;
   name: string;
   contactPreference: CoParentContactPreference;
   /** Private notes on communication dynamic — visible only to the owner */

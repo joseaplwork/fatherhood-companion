@@ -114,39 +114,40 @@ model UserProfile {
   calendarEntries      CalendarEntry[]
   resourceInteractions ResourceInteraction[]
   notifications        Notification[]
+  coParents            CoParent[]
 }
 
 model MoodEntry {
-  id          String   @id @default(cuid())
-  providerUserId String
-  profile     UserProfile @relation(fields: [providerUserId], references: [providerUserId])
-  mood        Int
-  note        String?
-  emotions    String[]
-  imageUrl    String?
-  date        DateTime @db.Date
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String      @id @default(cuid())
+  userId    String
+  profile   UserProfile @relation(fields: [userId], references: [id])
+  mood      Int
+  note      String?
+  emotions  String[]
+  imageUrl  String?
+  date      DateTime    @db.Date
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 
-  @@unique([providerUserId, date])
-  @@index([providerUserId, date])
+  @@unique([userId, date])
+  @@index([userId, date])
 }
 
 model AIConversation {
-  id          String    @id @default(cuid())
-  providerUserId String
-  profile     UserProfile @relation(fields: [providerUserId], references: [providerUserId])
-  title       String?
-  summary     String?
+  id         String      @id @default(cuid())
+  userId     String
+  profile    UserProfile @relation(fields: [userId], references: [id])
+  title      String?
+  summary    String?
   moodContext Int?
-  tokensUsed  Int       @default(0)
-  archivedAt  DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  tokensUsed Int         @default(0)
+  archivedAt DateTime?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
   messages ConversationMessage[]
 
-  @@index([providerUserId, createdAt])
+  @@index([userId, createdAt])
 }
 
 model ConversationMessage {
@@ -162,55 +163,55 @@ model ConversationMessage {
 }
 
 model CommunityPost {
-  id            String   @id @default(cuid())
-  providerUserId   String
-  profile       UserProfile @relation(fields: [providerUserId], references: [providerUserId])
+  id            String      @id @default(cuid())
+  userId        String
+  profile       UserProfile @relation(fields: [userId], references: [id])
   title         String
   content       String
-  isPinned      Boolean  @default(false)
-  isLocked      Boolean  @default(false)
-  replyCount    Int      @default(0)
-  reactionCount Int      @default(0)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  isPinned      Boolean     @default(false)
+  isLocked      Boolean     @default(false)
+  replyCount    Int         @default(0)
+  reactionCount Int         @default(0)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   replies   PostReply[]
   reactions PostReaction[]
 
   @@index([createdAt])
-  @@index([providerUserId])
+  @@index([userId])
 }
 
 model PostReply {
-  id          String   @id @default(cuid())
-  postId      String
-  post        CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  providerUserId String
-  profile     UserProfile @relation(fields: [providerUserId], references: [providerUserId])
-  content     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String        @id @default(cuid())
+  postId    String
+  post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    String
+  profile   UserProfile   @relation(fields: [userId], references: [id])
+  content   String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 
   @@index([postId, createdAt])
 }
 
 model PostReaction {
-  id          String       @id @default(cuid())
-  postId      String
-  post        CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  providerUserId String
-  profile     UserProfile @relation(fields: [providerUserId], references: [providerUserId])
-  type        ReactionType
-  createdAt   DateTime     @default(now())
+  id        String        @id @default(cuid())
+  postId    String
+  post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    String
+  profile   UserProfile   @relation(fields: [userId], references: [id])
+  type      ReactionType
+  createdAt DateTime      @default(now())
 
-  @@unique([postId, providerUserId, type])
+  @@unique([postId, userId, type])
   @@index([postId])
 }
 
 model CommunityEvent {
-  id          String    @id @default(cuid())
-  providerUserId String
-  profile     UserProfile @relation(fields: [providerUserId], references: [providerUserId])
+  id          String      @id @default(cuid())
+  userId      String
+  profile     UserProfile @relation(fields: [userId], references: [id])
   title       String
   description String
   kind        EventKind
@@ -219,8 +220,8 @@ model CommunityEvent {
   capacity    Int?
   startAt     DateTime
   endAt       DateTime
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   rsvps           EventRsvp[]
   calendarEntries CalendarEntry[]
@@ -229,23 +230,23 @@ model CommunityEvent {
 }
 
 model EventRsvp {
-  id          String     @id @default(cuid())
-  eventId     String
-  event       CommunityEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  providerUserId String
-  profile     UserProfile @relation(fields: [providerUserId], references: [providerUserId])
-  status      RsvpStatus
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id        String         @id @default(cuid())
+  eventId   String
+  event     CommunityEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  userId    String
+  profile   UserProfile    @relation(fields: [userId], references: [id])
+  status    RsvpStatus
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
 
-  @@unique([eventId, providerUserId])
-  @@index([providerUserId])
+  @@unique([eventId, userId])
+  @@index([userId])
 }
 
 model CalendarEntry {
   id               String            @id @default(cuid())
-  providerUserId      String
-  profile          UserProfile @relation(fields: [providerUserId], references: [providerUserId])
+  userId           String
+  profile          UserProfile       @relation(fields: [userId], references: [id])
   title            String
   description      String?
   type             CalendarEntryType
@@ -260,7 +261,7 @@ model CalendarEntry {
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
 
-  @@index([providerUserId, startAt])
+  @@index([userId, startAt])
 }
 
 model Resource {
@@ -283,39 +284,40 @@ model Resource {
 }
 
 model ResourceInteraction {
-  id          String   @id @default(cuid())
-  resourceId  String
-  resource    Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
-  providerUserId String
-  profile     UserProfile @relation(fields: [providerUserId], references: [providerUserId])
-  saved       Boolean  @default(false)
-  completed   Boolean  @default(false)
-  rating      Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String      @id @default(cuid())
+  resourceId String
+  resource   Resource    @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  userId     String
+  profile    UserProfile @relation(fields: [userId], references: [id])
+  saved      Boolean     @default(false)
+  completed  Boolean     @default(false)
+  rating     Int?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
-  @@unique([resourceId, providerUserId])
-  @@index([providerUserId])
+  @@unique([resourceId, userId])
+  @@index([userId])
 }
 
 model Notification {
-  id          String           @id @default(cuid())
-  providerUserId String
-  profile     UserProfile @relation(fields: [providerUserId], references: [providerUserId])
-  type        NotificationType
-  title       String
-  body        String
-  readAt      DateTime?
-  metadata    Json?
-  createdAt   DateTime         @default(now())
+  id        String           @id @default(cuid())
+  userId    String
+  profile   UserProfile      @relation(fields: [userId], references: [id])
+  type      NotificationType
+  title     String
+  body      String
+  readAt    DateTime?
+  metadata  Json?
+  createdAt DateTime         @default(now())
 
-  @@index([providerUserId, readAt, createdAt])
+  @@index([userId, readAt, createdAt])
 }
 
 /// Private metadata about the other co-parent. Visible only to the owning user.
 model CoParent {
   id                 String                    @id @default(cuid())
-  providerUserId     String                    @unique
+  userId             String                    @unique
+  profile            UserProfile               @relation(fields: [userId], references: [id])
   name               String
   contactPreference  CoParentContactPreference @default(UNSPECIFIED)
   communicationNotes String?

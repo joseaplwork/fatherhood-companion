@@ -2,7 +2,7 @@ import type { NotificationType } from "../enums/index";
 
 export type Notification = {
   id: string;
-  providerUserId: string;
+  userId: string;
   type: NotificationType;
   title: string;
   body: string;

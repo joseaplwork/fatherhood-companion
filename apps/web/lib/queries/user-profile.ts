@@ -8,9 +8,10 @@ import { db } from "@db";
  * The Clerk webhook handles the normal production path.
  *
  * Always idempotent — safe to call before any FK-backed write.
+ * Returns the full profile so callers can access the internal `id`.
  */
-export async function ensureUserProfile(providerUserId: string): Promise<void> {
-  await db.userProfile.upsert({
+export async function ensureUserProfile(providerUserId: string) {
+  return db.userProfile.upsert({
     where: { providerUserId },
     create: { providerUserId, interests: [], onboardingState: "PENDING" },
     update: {},

@@ -2,7 +2,7 @@ import type { EventKind, ReactionType, RsvpStatus } from "../enums/index";
 
 export type CommunityPost = {
   id: string;
-  providerUserId: string;
+  userId: string;
   title: string;
   content: string;
   isPinned: boolean;
@@ -16,7 +16,7 @@ export type CommunityPost = {
 export type PostReply = {
   id: string;
   postId: string;
-  providerUserId: string;
+  userId: string;
   content: string;
   createdAt: Date;
   updatedAt: Date;
@@ -25,14 +25,14 @@ export type PostReply = {
 export type PostReaction = {
   id: string;
   postId: string;
-  providerUserId: string;
+  userId: string;
   type: ReactionType;
   createdAt: Date;
 };
 
 export type CommunityEvent = {
   id: string;
-  providerUserId: string;
+  userId: string;
   title: string;
   description: string;
   kind: EventKind;
@@ -48,7 +48,7 @@ export type CommunityEvent = {
 export type EventRsvp = {
   id: string;
   eventId: string;
-  providerUserId: string;
+  userId: string;
   status: RsvpStatus;
   createdAt: Date;
   updatedAt: Date;

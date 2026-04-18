@@ -1,6 +1,6 @@
 import { db } from "@db";
 
-import { getAuthUserId } from "../auth";
+import { getSession } from "../session";
 
 export type UpcomingEventRow = {
   id: string;
@@ -13,8 +13,7 @@ export type UpcomingEventRow = {
 };
 
 export async function getUpcomingWeekEvents(): Promise<UpcomingEventRow[]> {
-  const userId = await getAuthUserId();
-  if (!userId) return [];
+  const session = await getSession();
 
   const start = new Date();
   start.setUTCHours(0, 0, 0, 0);
@@ -24,7 +23,7 @@ export async function getUpcomingWeekEvents(): Promise<UpcomingEventRow[]> {
 
   return db.calendarEntry.findMany({
     where: {
-      providerUserId: userId,
+      userId: session.userId,
       startAt: { gte: start, lt: end },
     },
     orderBy: { startAt: "asc" },

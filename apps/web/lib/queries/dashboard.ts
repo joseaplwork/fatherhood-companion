@@ -1,6 +1,6 @@
 import { db } from "@db";
 
-import { getAuthUserId } from "../auth";
+import { getSession } from "../session";
 
 import type { MoodEntryRow } from "./mood";
 
@@ -11,10 +11,7 @@ export type DashboardSummary = {
 };
 
 export async function getDashboardSummary(): Promise<DashboardSummary> {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return { recentMoods: [], weeklyAverage: null, unreadNotificationCount: 0 };
-  }
+  const session = await getSession();
 
   const since = new Date();
   since.setDate(since.getDate() - 6);
@@ -22,18 +19,18 @@ export async function getDashboardSummary(): Promise<DashboardSummary> {
 
   const [recentMoods, unreadCount] = await Promise.all([
     db.moodEntry.findMany({
-      where: { providerUserId: userId },
+      where: { userId: session.userId },
       orderBy: { date: "desc" },
       take: 5,
       select: { id: true, mood: true, note: true, emotions: true, imageUrl: true, date: true },
     }),
     db.notification.count({
-      where: { providerUserId: userId, readAt: null },
+      where: { userId: session.userId, readAt: null },
     }),
   ]);
 
   const weeklyMoods = await db.moodEntry.findMany({
-    where: { providerUserId: userId, date: { gte: since } },
+    where: { userId: session.userId, date: { gte: since } },
     select: { mood: true },
   });
 

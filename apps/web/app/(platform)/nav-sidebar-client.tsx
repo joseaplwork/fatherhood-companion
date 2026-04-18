@@ -1,9 +1,8 @@
 "use client";
 
-import { useClerk } from "@clerk/nextjs";
-
 import { NavSidebar } from "@ui";
 
+import { useSignOut } from "../../lib/auth-client";
 import { NAV_LINKS } from "../../lib/nav-links";
 
 type NavSidebarClientProps = {
@@ -12,7 +11,7 @@ type NavSidebarClientProps = {
 };
 
 export function NavSidebarClient({ userName, userAvatarSrc }: NavSidebarClientProps) {
-  const { signOut } = useClerk();
+  const signOut = useSignOut();
 
   return (
     <NavSidebar
@@ -20,7 +19,7 @@ export function NavSidebarClient({ userName, userAvatarSrc }: NavSidebarClientPr
       userName={userName}
       userAvatarSrc={userAvatarSrc}
       logoSrc="/logo.png"
-      onSignOut={() => signOut({ redirectUrl: "/sign-in" })}
+      onSignOut={signOut}
     />
   );
 }

@@ -1,14 +1,14 @@
-import { getUserContext } from "../../lib/queries/user";
+import { getSession } from "../../lib/session";
 
 import { NavSidebarClient } from "./nav-sidebar-client";
 
 export default async function PlatformLayout({ children }: { children: React.ReactNode }) {
-  const { userName, userAvatarSrc } = await getUserContext();
+  const session = await getSession();
 
   return (
     <div className="flex min-h-screen bg-surface">
       <aside className="sticky top-0 h-screen">
-        <NavSidebarClient userName={userName} userAvatarSrc={userAvatarSrc ?? null} />
+        <NavSidebarClient userName={session.userName} userAvatarSrc={session.userAvatarSrc} />
       </aside>
       <div className="flex flex-1">{children}</div>
     </div>

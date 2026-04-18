@@ -4,10 +4,9 @@ import { revalidatePath } from "next/cache";
 
 import { db } from "@db";
 
-import { getAuthUserId } from "../auth";
-import { ensureUserProfile } from "../queries/user-profile";
 import type { MoodEntryInput, UpdateMoodEntryInput } from "../schemas/mood";
 import { MoodEntrySchema, UpdateMoodEntrySchema } from "../schemas/mood";
+import { getSession } from "../session";
 
 type Result<T> = { data: T } | { error: string };
 
@@ -21,8 +20,7 @@ type MoodEntryData = {
 };
 
 export async function createMoodEntry(input: MoodEntryInput): Promise<Result<MoodEntryData>> {
-  const userId = await getAuthUserId();
-  if (!userId) return { error: "Unauthorized" };
+  const session = await getSession();
 
   const parsed = MoodEntrySchema.safeParse(input);
   if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Invalid input" };
@@ -31,10 +29,9 @@ export async function createMoodEntry(input: MoodEntryInput): Promise<Result<Moo
   const dateObj = new Date(`${date}T00:00:00.000Z`);
 
   try {
-    await ensureUserProfile(userId);
     const entry = await db.moodEntry.upsert({
-      where: { providerUserId_date: { providerUserId: userId, date: dateObj } },
-      create: { providerUserId: userId, mood, note, emotions: emotions ?? [], date: dateObj },
+      where: { userId_date: { userId: session.userId, date: dateObj } },
+      create: { userId: session.userId, mood, note, emotions: emotions ?? [], date: dateObj },
       update: { mood, note, emotions: emotions ?? [] },
     });
 
@@ -60,8 +57,7 @@ export async function updateMoodEntry(
   id: string,
   input: UpdateMoodEntryInput,
 ): Promise<Result<MoodEntryData>> {
-  const userId = await getAuthUserId();
-  if (!userId) return { error: "Unauthorized" };
+  const session = await getSession();
 
   const parsed = UpdateMoodEntrySchema.safeParse(input);
   if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Invalid input" };
@@ -69,7 +65,7 @@ export async function updateMoodEntry(
   try {
     // Verify ownership
     const existing = await db.moodEntry.findFirst({
-      where: { id, providerUserId: userId },
+      where: { id, userId: session.userId },
     });
     if (!existing) return { error: "Entry not found" };
 

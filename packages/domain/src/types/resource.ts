@@ -18,7 +18,7 @@ export type Resource = {
 export type ResourceInteraction = {
   id: string;
   resourceId: string;
-  providerUserId: string;
+  userId: string;
   saved: boolean;
   completed: boolean;
   rating: number | null;

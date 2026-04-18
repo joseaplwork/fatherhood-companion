@@ -1,6 +1,6 @@
 import { db } from "@db";
 
-import { getAuthUserId } from "../auth";
+import { getSession } from "../session";
 
 export type ChatMessageRow = {
   id: string;
@@ -14,11 +14,10 @@ export type ChatMessageRow = {
  * Returns an empty array if no conversation exists yet (first visit).
  */
 export async function getActiveConversationMessages(): Promise<ChatMessageRow[]> {
-  const userId = await getAuthUserId();
-  if (!userId) return [];
+  const session = await getSession();
 
   const conversation = await db.aIConversation.findFirst({
-    where: { providerUserId: userId, archivedAt: null },
+    where: { userId: session.userId, archivedAt: null },
     orderBy: { updatedAt: "desc" },
     include: {
       messages: {

@@ -33,11 +33,11 @@ export function NavSidebar({
         .join(" ")}
     >
       {/* Logo */}
-      <div className="flex px-4 pb-6">
-        {logoSrc && <img src={logoSrc} alt="Grove Companion" className="h-24 w-auto" />}
-        <div className="flex gap-0.5 flex-col pl-2 justify-center">
+      <div className="flex items-center gap-1 px-4 pb-6">
+        {logoSrc && <img src={logoSrc} alt="" className="h-12 w-auto" />}
+        <div className="flex flex-col gap-0.5">
           <span className="font-display text-lg font-semibold text-primary">Grove</span>
-          <span className="text-sm text-secondary">Companion</span>
+          <span className="font-body text-sm text-secondary">Companion</span>
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-1">
@@ -51,7 +51,6 @@ export function NavSidebar({
           />
         ))}
       </div>
-      ;
       <div className="mt-auto flex items-center gap-3 rounded-full px-4 py-3">
         <Avatar src={userAvatarSrc} name={userName} size="sm" />
         <span className="flex-1 truncate font-body text-sm font-medium text-on-surface">
@@ -68,7 +67,6 @@ export function NavSidebar({
           </button>
         )}
       </div>
-      ;
     </nav>
   );
 }
