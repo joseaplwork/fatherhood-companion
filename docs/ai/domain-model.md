@@ -14,11 +14,22 @@ Clerk owns the following per user:
 
 - Identity: user ID, email, full name, avatar, session tokens
 - **Private metadata — Children**: a list of child profiles attached to the user. Each child has
-  a system-generated numeric ID, a name, and date of birth at minimum. The numeric ID is the
-  stable key used to reference a child from other parts of the system (e.g., CalendarEntry).
+  a system-generated ID, a name, and date of birth at minimum. That ID is the stable key used
+  to reference a child from other parts of the system (e.g., CalendarEntry).
 
-> Note: which additional profile fields (onboarding state, subscription tier, bio) live in Clerk
-> metadata vs the database is TBD and will be captured in a data layer ADR.
+## UserProfile — the DB identity record
+
+`UserProfile` is the single bridge between Clerk and the application database.
+
+- `providerUserId` — the Clerk-issued external ID. Appears **only** on `UserProfile`. No other
+  model stores or references it.
+- `id` — an internal cuid. Every other model uses this as its foreign key (`userId → UserProfile.id`).
+
+The row is created by the Clerk `user.created` webhook. All application queries resolve the
+current user via `UserProfile.id`, never via `providerUserId`.
+
+Profile fields (bio, location, interests, onboarding state, subscription tier) are owned by
+`UserProfile` in the database.
 
 ---
 
@@ -110,8 +121,8 @@ a user of the system unless they independently sign up.
 
 ```
 Clerk User
-  ├── Children (private metadata, numeric ID per child)
-  └── [app DB records keyed by Clerk user ID]
+  ├── Children (private metadata, system-generated ID per child)
+  └── UserProfile (providerUserId = Clerk user ID, id = internal cuid)
        ├── AIConversations → ConversationMessages
        ├── MoodEntries (one per day)
        ├── CommunityPosts → PostReplies, PostReactions
@@ -120,6 +131,9 @@ Clerk User
        ├── ResourceInteractions → Resources
        ├── CoParent (one private record per user)
        └── Notifications
+
+All child models relate to UserProfile via userId → UserProfile.id (internal cuid).
+providerUserId never appears outside UserProfile.
 ```
 
 ---

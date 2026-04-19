@@ -136,8 +136,12 @@ views/                      # Smart components — one per screen (or sub-screen
     resources-view.tsx
     resource-detail-view.tsx
 lib/
+  auth.ts                   # Clerk server boundary — only file allowed to import @clerk/nextjs (server)
+  auth-client.ts            # Clerk client boundary — only file allowed to import @clerk/nextjs (client)
+  session.ts                # Public session contract — exports requireSession() only
   actions/                  # Server Actions (mutations, one file per domain)
   queries/                  # Data fetching functions (one file per domain)
+  schemas/                  # Zod validation schemas (one file per domain)
   utils/                    # Pure utility functions
 ```
 
@@ -186,6 +190,31 @@ lib/
 - Do not create barrel `index.ts` files inside `apps/web` folders.
 
 ---
+
+## Authentication Boundary
+
+All Clerk imports are isolated to two files:
+
+- `lib/auth.ts` — server-side Clerk calls (`auth()`, `currentUser()`, metadata writes). Nothing
+  outside this file may import `@clerk/nextjs` server APIs.
+- `lib/auth-client.ts` — client-side Clerk hooks (`useClerk`, etc.). Nothing outside this file
+  may import `@clerk/nextjs` client APIs.
+
+Components, queries, actions, and API routes must never import from `@clerk/nextjs` directly.
+
+## Session Contract
+
+`lib/session.ts` exports a single function: `requireSession(): Promise<UserSession>`.
+
+`UserSession` contains the internal `UserProfile.id` (as `userId`), display name, avatar, and
+children. It contains no Clerk-specific concepts.
+
+`requireSession()` redirects to `/sign-in` if no session is found. It is the only entry point
+for establishing who is logged in. Every protected page, layout, query, action, and API route
+calls it — never `auth()` directly.
+
+`UserProfile` is created by the Clerk `user.created` webhook. `requireSession()` does a plain
+`findUnique` — it never upserts or creates rows. A missing profile redirects, it does not create.
 
 ## Server Actions
 

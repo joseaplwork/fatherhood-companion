@@ -17,6 +17,24 @@ Use this structure for every new entry:
 
 ---
 
+- `Date`: 2026-04-19
+- `Area`: `apps/web/lib` — authentication and session design
+- `Symptom`: `getAuthUserId()` was calling `db.userProfile.upsert()` (an `ensureUserProfile` side effect) inside a function whose name implied a pure Clerk read. This caused a DB write on every authenticated request, hid the side effect from callers, and made the function untestable without a database.
+- `Root cause`: Defensive workaround — "upsert in case the webhook hasn't fired yet" — was baked into the hot path instead of being addressed at the source. The webhook is the canonical profile creation path; defensive hot-path upserts mask missing webhook reliability, create hidden coupling, and scale poorly.
+- `Prevention`: Auth boundary functions (`lib/auth.ts`) are pure Clerk calls only — no DB access. `lib/session.ts` resolves the session with a plain `findUnique`; it does not create records. Profile creation belongs exclusively in the `user.created` webhook handler.
+- `Automation or docs updated`: `docs/ai/coding-conventions.md` — Session Contract section added.
+
+---
+
+- `Date`: 2026-04-19
+- `Area`: `packages/db/prisma/schema.prisma` — foreign key design
+- `Symptom`: `providerUserId` (Clerk external ID) was used as the FK field on all 11 child models, spreading an external auth provider concept across the entire database schema. Changing auth providers or Clerk account IDs would require migrating every child table.
+- `Root cause`: Identity records were related directly to the Clerk ID rather than through an internal stable key. The application-internal `UserProfile.id` was not used as the FK.
+- `Prevention`: Only `UserProfile` holds `providerUserId` — as the bridge between Clerk and the DB. All other models use `userId → UserProfile.id` (internal cuid). Auth provider concepts must not leak past the `UserProfile` row.
+- `Automation or docs updated`: `docs/ai/domain-model.md` — UserProfile section and relationship diagram updated.
+
+---
+
 - `Date`: 2026-03-31
 - `Area`: `apps/web` — TypeScript strict mode across monorepo workspaces
 - `Symptom`: CI `typecheck` fails with `TS7006: Parameter implicitly has an 'any' type` on `reduce` callback parameters (`sum`, `m`) and on `map` callback parameters inside nested `async` callbacks.
