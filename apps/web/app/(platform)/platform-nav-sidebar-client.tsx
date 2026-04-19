@@ -10,7 +10,7 @@ type NavSidebarClientProps = {
   userAvatarSrc: string | null;
 };
 
-export function NavSidebarClient({ userName, userAvatarSrc }: NavSidebarClientProps) {
+export function PlatformNavSidebar({ userName, userAvatarSrc }: NavSidebarClientProps) {
   const signOut = useSignOut();
 
   return (
