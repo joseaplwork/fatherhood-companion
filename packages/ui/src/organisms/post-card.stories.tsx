@@ -9,7 +9,7 @@ const meta = {
   parameters: { layout: "centered" },
   decorators: [
     (Story) => (
-      <div className="w-[400px]">
+      <div className="w-100">
         <Story />
       </div>
     ),
