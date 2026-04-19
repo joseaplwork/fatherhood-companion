@@ -1,6 +1,6 @@
 "use client";
 
-import { OnboardingTemplate } from "@ui";
+import { OnboardingTemplate } from "@/grove-companion/ui";
 
 import { OnboardingStepBio } from "./steps/onboarding-step-bio";
 import { OnboardingStepChildren } from "./steps/onboarding-step-children";

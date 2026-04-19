@@ -1,8 +1,7 @@
 "use client";
 
 import { useChat } from "ai/react";
-
-import { Button, ChatMessage, ChatTemplate } from "@ui";
+import { Button, ChatMessage, ChatTemplate } from "@/grove-companion/ui";
 
 import type { ChatMessageRow } from "../../lib/queries/chat";
 

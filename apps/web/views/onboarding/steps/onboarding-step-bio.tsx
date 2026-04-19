@@ -1,4 +1,4 @@
-import { FormField } from "@ui";
+import { FormField } from "@/grove-companion/ui";
 
 type OnboardingStepBioProps = {
   bio: string;

@@ -3,7 +3,7 @@
  * Derived from Stitch project 12996986170513421000 + DESIGN.md.
  *
  * Import in apps/web/app/globals.css:
- *   @import "@grove-companion/ui/theme.css";
+ *   @import "@/grove-companion/ui/theme.css";
  */
 @theme {
   /* --- Primary (Sage Green) --- */

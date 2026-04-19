@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-import type { MoodScale } from "@domain";
-import { Button, Dialog, FormField, MoodPicker } from "@ui";
+import type { MoodScale } from "@/grove-companion/domain";
+import { Button, Dialog, FormField, MoodPicker } from "@/grove-companion/ui";
 
 import { createMoodEntry } from "../../lib/actions/mood";
+import { getLocalDateString } from "../../lib/format-date";
 
 type LogMoodDialogProps = {
   label?: string;
@@ -46,7 +46,7 @@ export function LogMoodDialog({ label = "Log mood", variant = "primary" }: LogMo
     setSubmitting(true);
     setError(null);
 
-    const today = new Date().toISOString().split("T")[0] ?? "";
+    const today = getLocalDateString();
     const result = await createMoodEntry({ mood, note: note || undefined, date: today });
 
     if ("error" in result) {

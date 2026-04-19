@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 
 /**
  * Grove Companion design token config.
- * apps/web extends this via: import uiConfig from "@grove-companion/ui/tailwind"
+ * apps/web extends this via: import uiConfig from "@/grove-companion/ui/tailwind"
  *
  * Tokens derived from Stitch project 12996986170513421000 namedColors + DESIGN.md.
  */

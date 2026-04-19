@@ -1,5 +1,5 @@
-import { SUMMARY_TRIGGER_COUNT } from "@grove-companion/domain";
 import { generateText } from "ai";
+import { SUMMARY_TRIGGER_COUNT } from "@/grove-companion/domain";
 
 import { buildSummarizePrompt } from "../prompts/summarize";
 import { getAIModel } from "../providers";

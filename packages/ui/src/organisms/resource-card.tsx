@@ -1,4 +1,4 @@
-import type { ResourceCategory, ResourceType } from "@grove-companion/domain";
+import type { ResourceCategory, ResourceType } from "@/grove-companion/domain";
 
 import { ResourceMeta } from "../molecules/resource-meta";
 

@@ -1,22 +1,6 @@
-import type { MoodScale } from "@grove-companion/domain";
+import { MOOD_EMOJIS, MOOD_LABELS, type MoodScale } from "@/grove-companion/domain";
 
 import { EmotionTag } from "../molecules/emotion-tag";
-
-const MOOD_EMOJIS: Record<MoodScale, string> = {
-  1: "😔",
-  2: "😕",
-  3: "😐",
-  4: "🙂",
-  5: "😄",
-};
-
-const MOOD_LABELS: Record<MoodScale, string> = {
-  1: "Struggling",
-  2: "Low",
-  3: "Okay",
-  4: "Good",
-  5: "Great",
-};
 
 type DiaryEntryCardProps = {
   date: string;

@@ -2,8 +2,7 @@ export const runtime = "nodejs";
 
 import type { WebhookEvent } from "@clerk/nextjs/server";
 import type { NextRequest } from "next/server";
-
-import { db } from "@db";
+import { db } from "@/grove-companion/db";
 
 import { Webhook } from "svix";
 

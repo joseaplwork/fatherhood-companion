@@ -1,4 +1,8 @@
-import type { ResourceCategory, ResourceType } from "@grove-companion/domain";
+import {
+  RESOURCE_CATEGORY_LABELS,
+  type ResourceCategory,
+  type ResourceType,
+} from "@/grove-companion/domain";
 
 import { Icon } from "../atoms/icon";
 
@@ -8,16 +12,6 @@ const TYPE_ICONS: Record<ResourceType, string> = {
   EXERCISE: "fitness_center",
   MINI_COURSE: "school",
   GUIDE: "menu_book",
-};
-
-const CATEGORY_LABELS: Record<ResourceCategory, string> = {
-  MENTAL_HEALTH: "Mental Health",
-  CO_PARENTING: "Co-Parenting",
-  LEGAL: "Legal",
-  FINANCE: "Finance",
-  CHILD_DEVELOPMENT: "Child Development",
-  SELF_CARE: "Self Care",
-  COMMUNITY: "Community",
 };
 
 type ResourceMetaProps = {
@@ -44,7 +38,7 @@ export function ResourceMeta({
       <div className="flex items-center gap-1">
         <Icon name={TYPE_ICONS[type]} size={14} className="text-on-surface-variant" />
         <span className="font-body text-xs text-on-surface-variant">
-          {CATEGORY_LABELS[category]}
+          {RESOURCE_CATEGORY_LABELS[category]}
         </span>
       </div>
       <div className="flex items-center gap-2 ml-auto">

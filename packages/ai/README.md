@@ -1,4 +1,4 @@
-# @grove-companion/ai
+# @/grove-companion/ai
 
 ## Responsibility
 
@@ -17,7 +17,7 @@ templates, the streaming utility, rolling summary logic, and the crisis-detectio
 
 - `ai` (Vercel AI SDK)
 - `@ai-sdk/anthropic`
-- `@grove-companion/domain` (types and constants)
+- `@/grove-companion/domain` (types and constants)
 
 ## Forbidden Dependencies
 
@@ -28,4 +28,4 @@ templates, the streaming utility, rolling summary logic, and the crisis-detectio
 ## Notes
 
 - Model version is configured in `src/config.ts`. Changing it there changes it everywhere.
-- Crisis detection keywords come from `@grove-companion/domain` constants.
+- Crisis detection keywords come from `@/grove-companion/domain` constants.

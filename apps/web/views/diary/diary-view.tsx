@@ -1,6 +1,5 @@
 import Link from "next/link";
-
-import { DiaryEntryCard, DiaryTemplate, MoodBarChart } from "@ui";
+import { DiaryEntryCard, DiaryTemplate, MoodBarChart } from "@/grove-companion/ui";
 
 import { formatDateShort } from "../../lib/format-date";
 import type { MoodEntryRow } from "../../lib/queries/mood";

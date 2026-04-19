@@ -1,26 +1,26 @@
 import type { CalendarEntryType, MoodScale, ResourceCategory } from "../enums/index";
 
 export const MOOD_LABELS: Record<MoodScale, string> = {
-  1: "Really struggling",
-  2: "Having a tough time",
-  3: "Getting through it",
-  4: "Doing pretty well",
-  5: "Feeling great",
+  1: "Struggling",
+  2: "Low",
+  3: "Okay",
+  4: "Good",
+  5: "Great",
 };
 
 export const MOOD_EMOJIS: Record<MoodScale, string> = {
   1: "😔",
-  2: "😟",
+  2: "😕",
   3: "😐",
   4: "🙂",
-  5: "😊",
+  5: "😄",
 };
 
 export const RESOURCE_CATEGORY_LABELS: Record<ResourceCategory, string> = {
   MENTAL_HEALTH: "Mental Health",
   CO_PARENTING: "Co-Parenting",
-  LEGAL: "Legal",
-  FINANCE: "Finance",
+  LEGAL: "Legal & Rights",
+  FINANCE: "Financial Wellness",
   CHILD_DEVELOPMENT: "Child Development",
   SELF_CARE: "Self-Care",
   COMMUNITY: "Community",

@@ -1,4 +1,4 @@
-import { db } from "@db";
+import { db } from "@/grove-companion/db";
 
 /**
  * Ensures a UserProfile row exists for the given Clerk user ID.

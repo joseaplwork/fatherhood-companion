@@ -9,7 +9,7 @@
     "prepare": "husky",
     "dev": "pnpm -r --parallel --if-present dev",
     "dev:web": "pnpm --filter web dev",
-    "dev:ui": "pnpm --filter @grove-companion/ui dev",
+    "dev:ui": "pnpm --filter @/grove-companion/ui dev",
     "build": "pnpm -r --if-present build",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "biome check .",

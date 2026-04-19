@@ -1,8 +1,8 @@
 "use client";
 
-import type { MoodScale } from "@grove-companion/domain";
-import { MOOD_EMOJIS, MOOD_LABELS } from "@grove-companion/domain";
 import { useState } from "react";
+import type { MoodScale } from "@/grove-companion/domain";
+import { MOOD_EMOJIS, MOOD_LABELS } from "@/grove-companion/domain";
 
 import { Slider } from "../atoms/slider";
 

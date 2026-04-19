@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
 import { cache } from "react";
-
-import { db } from "@db";
-import type { ChildProfile } from "@domain";
+import { db } from "@/grove-companion/db";
+import type { ChildProfile } from "@/grove-companion/domain";
 
 import { getAuthProfile, getAuthUserId } from "./auth";
 

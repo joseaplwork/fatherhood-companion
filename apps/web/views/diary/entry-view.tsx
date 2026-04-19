@@ -1,19 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-
-import { Button } from "@ui";
+import { MOOD_EMOJIS, MOOD_LABELS, type MoodScale } from "@/grove-companion/domain";
+import { Button } from "@/grove-companion/ui";
 
 import { formatDateFull } from "../../lib/format-date";
 import type { MoodEntryRow } from "../../lib/queries/mood";
-
-const MOOD_EMOJIS: Record<number, string> = { 1: "😔", 2: "😕", 3: "😐", 4: "🙂", 5: "😄" };
-const MOOD_LABELS: Record<number, string> = {
-  1: "Struggling",
-  2: "Low",
-  3: "Okay",
-  4: "Good",
-  5: "Great",
-};
 
 type EntryViewProps = {
   entry: MoodEntryRow;
@@ -37,10 +28,10 @@ export function EntryView({ entry }: EntryViewProps) {
         <div className="rounded-2xl bg-surface-container-low px-5 py-5 mb-4">
           <p className="font-body text-xs text-on-surface-variant mb-2">{dateLabel}</p>
           <div className="flex items-center gap-3">
-            <span className="text-4xl leading-none">{MOOD_EMOJIS[entry.mood]}</span>
+            <span className="text-4xl leading-none">{MOOD_EMOJIS[entry.mood as MoodScale]}</span>
             <div>
               <p className="font-display text-lg font-semibold text-on-surface">
-                {MOOD_LABELS[entry.mood]}
+                {MOOD_LABELS[entry.mood as MoodScale]}
               </p>
               <p className="font-body text-xs text-on-surface-variant">Mood · {entry.mood}/5</p>
             </div>

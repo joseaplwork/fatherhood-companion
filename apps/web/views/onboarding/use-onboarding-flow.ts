@@ -1,14 +1,15 @@
 "use client";
 
 import { useCallback, useState } from "react";
-
-import type { ChildProfile } from "@domain";
+import type { ResourceCategory } from "@/grove-companion/domain";
 
 import { completeOnboarding } from "../../lib/actions/onboarding";
 import { useReloadUser } from "../../lib/auth-client";
-import type { InterestKey } from "../../lib/schemas/onboarding";
+import { buildBirthDateString } from "../../lib/utils/birth-date";
 
 import { TOTAL_STEPS } from "./onboarding-constants";
+
+type ChildDraft = { nickname: string; birthDate: string };
 
 export function useOnboardingFlow() {
   const reloadUser = useReloadUser();
@@ -16,21 +17,19 @@ export function useOnboardingFlow() {
   const [step, setStep] = useState(1);
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
-  const [children, setChildren] = useState<ChildProfile[]>([]);
+  const [children, setChildren] = useState<ChildDraft[]>([]);
   const [childNickname, setChildNickname] = useState("");
   const [childMonth, setChildMonth] = useState("");
   const [childYear, setChildYear] = useState("");
-  const [interests, setInterests] = useState<InterestKey[]>([]);
+  const [interests, setInterests] = useState<ResourceCategory[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const addChild = useCallback(() => {
     if (!childNickname.trim() || !childMonth || !childYear) return;
-    const mm = childMonth.padStart(2, "0");
-    const birthDate = `${mm}-${childYear}`;
     setChildren((prev) => [
       ...prev,
-      { id: crypto.randomUUID(), nickname: childNickname.trim(), birthDate },
+      { nickname: childNickname.trim(), birthDate: buildBirthDateString(childMonth, childYear) },
     ]);
     setChildNickname("");
     setChildMonth("");
@@ -41,7 +40,7 @@ export function useOnboardingFlow() {
     setChildren((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
-  const toggleInterest = useCallback((key: InterestKey) => {
+  const toggleInterest = useCallback((key: ResourceCategory) => {
     setInterests((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]));
   }, []);
 

@@ -1,6 +1,6 @@
-import { CRISIS_KEYWORDS } from "@grove-companion/domain";
 import { tool } from "ai";
 import { z } from "zod";
+import { CRISIS_KEYWORDS } from "@/grove-companion/domain";
 
 export const crisisCheckTool = tool({
   description:
@@ -19,7 +19,7 @@ export const crisisCheckTool = tool({
 /** Quick keyword-based pre-check before AI evaluation */
 export function containsCrisisKeyword(text: string): boolean {
   const lower = text.toLowerCase();
-  return CRISIS_KEYWORDS.some((keyword) => lower.includes(keyword));
+  return CRISIS_KEYWORDS.some((keyword: string) => lower.includes(keyword));
 }
 
 export const CRISIS_RESOURCES = `If you're in crisis or need immediate support:

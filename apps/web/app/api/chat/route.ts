@@ -1,6 +1,5 @@
 import { streamText } from "ai";
 import type { NextRequest } from "next/server";
-
 import {
   AI_CONFIG,
   buildCompanionSystemPrompt,
@@ -9,8 +8,8 @@ import {
   generateSummary,
   getAIModel,
   shouldSummarize,
-} from "@ai";
-import { db } from "@db";
+} from "@/grove-companion/ai";
+import { db } from "@/grove-companion/db";
 
 import { getSession } from "../../../lib/session";
 

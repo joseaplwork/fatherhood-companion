@@ -1,8 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-
-import { db } from "@db";
+import { db } from "@/grove-companion/db";
 
 import { setUserPrivateMetadata, setUserPublicMetadata } from "../auth";
 import type { OnboardingInput } from "../schemas/onboarding";
@@ -35,8 +34,9 @@ export async function completeOnboarding(input: OnboardingInput): Promise<Result
     });
 
     // Store children with full ChildProfile shape in Clerk private metadata.
+    // IDs are generated server-side — the client never supplies them.
     const childProfiles = (children ?? []).map((child) => ({
-      id: child.id,
+      id: crypto.randomUUID(),
       nickname: child.nickname,
       birthDate: child.birthDate,
     }));

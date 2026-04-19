@@ -1,4 +1,4 @@
-import { ResourceCard, ResourceTemplate } from "@ui";
+import { ResourceCard, ResourceTemplate } from "@/grove-companion/ui";
 
 export function ResourcesView() {
   return (

@@ -1,7 +1,6 @@
 import Link from "next/link";
-
-import type { CalendarEntryType } from "@domain";
-import { CALENDAR_ENTRY_TYPE_LABELS } from "@domain";
+import type { CalendarEntryType } from "@/grove-companion/domain";
+import { CALENDAR_ENTRY_TYPE_LABELS } from "@/grove-companion/domain";
 import {
   AIInsightsPanel,
   Button,
@@ -9,9 +8,14 @@ import {
   DiaryEntryCard,
   MetricChip,
   MoodBarChart,
-} from "@ui";
+} from "@/grove-companion/ui";
 
-import { formatDateLong, formatDateShort } from "../../lib/format-date";
+import {
+  formatDateLong,
+  formatDateShort,
+  formatEventTime,
+  getLocalDateString,
+} from "../../lib/format-date";
 import type { UpcomingEventRow } from "../../lib/queries/calendar";
 import type { DashboardSummary } from "../../lib/queries/dashboard";
 
@@ -84,9 +88,7 @@ export function DashboardView({
                   const dot = event.color ?? "#67794a";
                   const typeLabel =
                     CALENDAR_ENTRY_TYPE_LABELS[event.type as CalendarEntryType] ?? event.type;
-                  const timeLabel = event.allDay
-                    ? formatDateShort(event.startAt)
-                    : `${formatDateShort(event.startAt)} · ${event.startAt.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`;
+                  const timeLabel = formatEventTime(event.startAt, event.allDay);
                   return (
                     <div key={event.id} className="flex items-center gap-3">
                       <span
@@ -109,7 +111,7 @@ export function DashboardView({
 
           {/* Log mood CTA if nothing today */}
           {!recentMoods.some(
-            (m) => m.date.toISOString().split("T")[0] === new Date().toISOString().split("T")[0],
+            (m) => m.date.toISOString().split("T")[0] === getLocalDateString(),
           ) && (
             <div className="rounded-2xl bg-primary-fixed px-5 py-4 flex items-center justify-between">
               <p className="font-body text-sm text-on-primary-fixed">

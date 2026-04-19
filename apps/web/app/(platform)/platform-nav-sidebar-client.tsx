@@ -1,6 +1,6 @@
 "use client";
 
-import { NavSidebar } from "@ui";
+import { NavSidebar } from "@/grove-companion/ui";
 
 import { useSignOut } from "../../lib/auth-client";
 import { NAV_LINKS } from "../../lib/nav-links";

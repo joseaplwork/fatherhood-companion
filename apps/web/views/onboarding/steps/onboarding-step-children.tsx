@@ -1,10 +1,11 @@
-import type { ChildProfile } from "@domain";
-import { Button, FormField } from "@ui";
+import { Button, FormField } from "@/grove-companion/ui";
 
-import { BIRTH_YEARS, formatBirthDateLabel, MONTH_NAMES } from "../onboarding-constants";
+import { BIRTH_YEARS, formatBirthDateLabel, MONTH_NAMES } from "../../../lib/utils/birth-date";
+
+type ChildDraft = { nickname: string; birthDate: string };
 
 type OnboardingStepChildrenProps = {
-  childProfiles: ChildProfile[];
+  childProfiles: ChildDraft[];
   childNickname: string;
   childMonth: string;
   childYear: string;
@@ -100,7 +101,9 @@ export function OnboardingStepChildren({
         <ul className="flex flex-col gap-2">
           {childProfiles.map((child, i) => (
             <li
-              key={child.id}
+              // Index key is safe here: list is append-only until submit, max 10 items
+              // biome-ignore lint/suspicious/noArrayIndexKey: intentional — see comment above
+              key={i}
               className="flex items-center justify-between rounded-full bg-surface-container-low px-4 py-2"
             >
               <span className="font-body text-sm text-on-surface">

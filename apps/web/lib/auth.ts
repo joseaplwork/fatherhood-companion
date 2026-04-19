@@ -13,8 +13,7 @@
  *   getAuthProfile — resolves Clerk session → display data (name, avatar, children)
  */
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
-
-import type { ChildProfile } from "@domain";
+import type { ChildProfile } from "@/grove-companion/domain";
 
 // ---------------------------------------------------------------------------
 // Internal helpers — consumed by lib/session.ts only

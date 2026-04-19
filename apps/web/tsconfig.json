@@ -9,13 +9,13 @@
     "baseUrl": ".",
     "paths": {
       "@web/*": ["./*"],
-      "@domain": ["../../packages/domain/src/index.ts"],
-      "@domain/*": ["../../packages/domain/src/*"],
-      "@db": ["../../packages/db/src/index.ts"],
-      "@ai": ["../../packages/ai/src/index.ts"],
-      "@ai/*": ["../../packages/ai/src/*"],
-      "@ui": ["../../packages/ui/src/index.ts"],
-      "@ui/*": ["../../packages/ui/src/*"]
+      "@/grove-companion/domain": ["../../packages/domain/src/index.ts"],
+      "@/grove-companion/domain/*": ["../../packages/domain/src/*"],
+      "@/grove-companion/db": ["../../packages/db/src/index.ts"],
+      "@/grove-companion/ai": ["../../packages/ai/src/index.ts"],
+      "@/grove-companion/ai/*": ["../../packages/ai/src/*"],
+      "@/grove-companion/ui": ["../../packages/ui/src/index.ts"],
+      "@/grove-companion/ui/*": ["../../packages/ui/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

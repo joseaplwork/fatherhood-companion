@@ -18,6 +18,15 @@ Use this structure for every new entry:
 ---
 
 - `Date`: 2026-04-19
+- `Area`: `packages/ui`, `apps/web` — domain constant duplication
+- `Symptom`: `MOOD_LABELS`, `MOOD_EMOJIS`, `RESOURCE_CATEGORY_LABELS` were redefined locally inside `diary-entry-card.tsx` and `resource-meta.tsx`. `InterestKey`/`INTEREST_KEYS`/`INTEREST_LABELS` were redefined in `lib/schemas/onboarding.ts` and `views/onboarding/` — duplicating `ResourceCategory`/`RESOURCE_CATEGORY_VALUES`/`RESOURCE_CATEGORY_LABELS` which already existed in `packages/domain`.
+- `Root cause`: New code was written without checking the Domain Constants Registry in `coding-conventions.md`. Constants that belong to `packages/domain` were re-invented locally because the registry was not consulted.
+- `Prevention`: Before defining any constant that maps an enum to a label, check the Domain Constants Registry table in `coding-conventions.md`. If the constant already exists in `packages/domain`, import it — do not copy it. If it doesn't exist and it is domain-level (used in more than one workspace or by the AI layer), add it to `packages/domain` and register it in the table.
+- `Automation or docs updated`: `coding-conventions.md` — Domain Constants Registry updated with `RESOURCE_CATEGORY_VALUES`; Import Aliases section added; "What Not To Do" already lists "No redefining constants that already exist in `@domain/constants`".
+
+---
+
+- `Date`: 2026-04-19
 - `Area`: `apps/web/lib` — authentication and session design
 - `Symptom`: `getAuthUserId()` was calling `db.userProfile.upsert()` (an `ensureUserProfile` side effect) inside a function whose name implied a pure Clerk read. This caused a DB write on every authenticated request, hid the side effect from callers, and made the function untestable without a database.
 - `Root cause`: Defensive workaround — "upsert in case the webhook hasn't fired yet" — was baked into the hot path instead of being addressed at the source. The webhook is the canonical profile creation path; defensive hot-path upserts mask missing webhook reliability, create hidden coupling, and scale poorly.

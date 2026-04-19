@@ -1,4 +1,4 @@
-# @grove-companion/domain
+# @/grove-companion/domain
 
 ## Responsibility
 

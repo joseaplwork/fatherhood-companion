@@ -1,11 +1,8 @@
-import type { ChildProfile } from "@domain";
-
-import type { InterestKey } from "../../../lib/schemas/onboarding";
-import { INTEREST_LABELS } from "../onboarding-constants";
+import { RESOURCE_CATEGORY_LABELS, type ResourceCategory } from "@/grove-companion/domain";
 
 type OnboardingStepConfirmProps = {
-  childProfiles: ChildProfile[];
-  interests: InterestKey[];
+  childProfiles: { nickname: string }[];
+  interests: ResourceCategory[];
   error: string | null;
 };
 
@@ -36,7 +33,7 @@ export function OnboardingStepConfirm({
         {interests.length > 0 && (
           <p className="font-body text-sm text-on-primary-fixed">
             <span className="font-semibold">Interests:</span>{" "}
-            {interests.map((k) => INTEREST_LABELS[k]).join(", ")}
+            {interests.map((k) => RESOURCE_CATEGORY_LABELS[k]).join(", ")}
           </p>
         )}
         <p className="font-body text-sm text-on-primary-fixed">

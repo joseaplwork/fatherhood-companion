@@ -1,4 +1,4 @@
-import { Button, CommunityTemplate, PostCard } from "@ui";
+import { Button, CommunityTemplate, PostCard } from "@/grove-companion/ui";
 
 export function CommunityView() {
   return (

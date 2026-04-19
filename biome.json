@@ -48,7 +48,17 @@
                 "@ai-sdk/openai"
               ],
               ":BLANK_LINE:",
-              ["@ai", "@ai/**", "@db", "@domain", "@domain/**", "@ui", "@ui/**", "@web/**"],
+              [
+                "@/grove-companion/ai",
+                "@/grove-companion/ai/**",
+                "@/grove-companion/db",
+                "@/grove-companion/db/**",
+                "@/grove-companion/domain",
+                "@/grove-companion/domain/**",
+                "@/grove-companion/ui",
+                "@/grove-companion/ui/**",
+                "@/grove-companion/web/**"
+              ],
               ":BLANK_LINE:",
               ["../**"],
               ":BLANK_LINE:",

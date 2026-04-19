@@ -1,8 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-
-import { db } from "@db";
+import { db } from "@/grove-companion/db";
 
 import type { MoodEntryInput, UpdateMoodEntryInput } from "../schemas/mood";
 import { MoodEntrySchema, UpdateMoodEntrySchema } from "../schemas/mood";

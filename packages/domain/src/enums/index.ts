@@ -24,6 +24,20 @@ export type ResourceCategory =
   | "SELF_CARE"
   | "COMMUNITY";
 
+/**
+ * Tuple of all ResourceCategory values as a const array.
+ * Use this with z.enum() for Zod validation — the union type alone is not enough.
+ */
+export const RESOURCE_CATEGORY_VALUES = [
+  "MENTAL_HEALTH",
+  "CO_PARENTING",
+  "LEGAL",
+  "FINANCE",
+  "CHILD_DEVELOPMENT",
+  "SELF_CARE",
+  "COMMUNITY",
+] as const satisfies ResourceCategory[];
+
 export type ResourceType = "ARTICLE" | "VIDEO" | "EXERCISE" | "MINI_COURSE" | "GUIDE";
 
 export type NotificationType =

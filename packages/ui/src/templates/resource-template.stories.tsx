@@ -1,5 +1,5 @@
-import type { ResourceCategory, ResourceType } from "@grove-companion/domain";
 import type { Meta, StoryObj } from "@storybook/react";
+import type { ResourceCategory, ResourceType } from "@/grove-companion/domain";
 
 import { ResourceCard } from "../organisms/resource-card";
 

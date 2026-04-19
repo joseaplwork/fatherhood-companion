@@ -1,6 +1,6 @@
 "use client";
 
-import type { RsvpStatus } from "@grove-companion/domain";
+import type { RsvpStatus } from "@/grove-companion/domain";
 
 type RsvpButtonsProps = {
   value?: RsvpStatus | null;

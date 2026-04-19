@@ -1,4 +1,4 @@
-import type { ReactionType } from "@grove-companion/domain";
+import type { ReactionType } from "@/grove-companion/domain";
 
 import { Avatar } from "../atoms/avatar";
 import { Icon } from "../atoms/icon";

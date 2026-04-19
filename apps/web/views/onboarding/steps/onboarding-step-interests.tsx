@@ -1,9 +1,12 @@
-import { INTEREST_KEYS, type InterestKey } from "../../../lib/schemas/onboarding";
-import { INTEREST_LABELS } from "../onboarding-constants";
+import {
+  RESOURCE_CATEGORY_LABELS,
+  RESOURCE_CATEGORY_VALUES,
+  type ResourceCategory,
+} from "@/grove-companion/domain";
 
 type OnboardingStepInterestsProps = {
-  selected: InterestKey[];
-  onToggle: (key: InterestKey) => void;
+  selected: ResourceCategory[];
+  onToggle: (key: ResourceCategory) => void;
 };
 
 export function OnboardingStepInterests({ selected, onToggle }: OnboardingStepInterestsProps) {
@@ -19,7 +22,7 @@ export function OnboardingStepInterests({ selected, onToggle }: OnboardingStepIn
         </p>
       </div>
       <div className="flex flex-wrap gap-3">
-        {INTEREST_KEYS.map((key) => {
+        {RESOURCE_CATEGORY_VALUES.map((key) => {
           const isSelected = selected.includes(key);
           return (
             <button
@@ -33,7 +36,7 @@ export function OnboardingStepInterests({ selected, onToggle }: OnboardingStepIn
                   : "bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest",
               ].join(" ")}
             >
-              {INTEREST_LABELS[key]}
+              {RESOURCE_CATEGORY_LABELS[key]}
             </button>
           );
         })}

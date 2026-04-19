@@ -1,4 +1,4 @@
-import { db } from "@db";
+import { db } from "@/grove-companion/db";
 
 import { getSession } from "../session";
 

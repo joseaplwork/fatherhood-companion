@@ -1,4 +1,4 @@
-import type { ChildProfile } from "@grove-companion/domain";
+import type { ChildProfile } from "@/grove-companion/domain";
 
 export type CompanionContext = {
   moodAverage: number | null;

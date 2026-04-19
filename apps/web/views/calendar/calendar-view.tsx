@@ -1,43 +1,10 @@
 "use client";
 
 import { useState } from "react";
-
-import { CalendarGrid, CalendarTemplate } from "@ui";
+import { CalendarGrid, CalendarTemplate } from "@/grove-companion/ui";
 
 import { formatDateLong } from "../../lib/format-date";
-
-type DayData = {
-  date: number;
-  isCurrentMonth: boolean;
-  isToday?: boolean;
-};
-
-function buildDaysForMonth(year: number, month: number): DayData[] {
-  const firstDayOfWeek = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const daysInPrevMonth = new Date(year, month, 0).getDate();
-  const today = new Date();
-  const days: DayData[] = [];
-
-  for (let i = firstDayOfWeek - 1; i >= 0; i--) {
-    days.push({ date: daysInPrevMonth - i, isCurrentMonth: false });
-  }
-
-  for (let d = 1; d <= daysInMonth; d++) {
-    days.push({
-      date: d,
-      isCurrentMonth: true,
-      isToday: today.getFullYear() === year && today.getMonth() === month && today.getDate() === d,
-    });
-  }
-
-  const trailing = days.length % 7 === 0 ? 0 : 7 - (days.length % 7);
-  for (let d = 1; d <= trailing; d++) {
-    days.push({ date: d, isCurrentMonth: false });
-  }
-
-  return days;
-}
+import { buildDaysForMonth, toMonthString } from "../../lib/utils/calendar";
 
 export function CalendarView() {
   const now = new Date();
@@ -46,7 +13,7 @@ export function CalendarView() {
   const [selectedDate, setSelectedDate] = useState<number | null>(now.getDate());
 
   const days = buildDaysForMonth(year, month);
-  const monthStr = `${year}-${String(month + 1).padStart(2, "0")}`;
+  const monthStr = toMonthString(year, month);
 
   function prevMonth() {
     if (month === 0) {
